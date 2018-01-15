@@ -1,3 +1,3 @@
 @echo off
-title Run Bot
+title MicroBOT
 node run.js
