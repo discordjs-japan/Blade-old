@@ -20,7 +20,7 @@ client.on("message", message => { //Commands
   command = command.slice(prefix.length);
   let args = message.content.split(" ").slice(1);
   if (command === "help") {
-    message.channel.sendMessage("制作途中");
+    message.channel.sendMessage("**コマンド一覧**\n情報```\n./ping, /avatar\n```");
   } else
   if (command === "ping") {
     message.channel.sendMessage(new Date().getTime() - message.createdTimestamp + "ms");
