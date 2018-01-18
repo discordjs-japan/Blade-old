@@ -1,7 +1,9 @@
 # Micro
-このBOTを組織で中心的に作ります。
+<div>
+    <a href="https://discord.gg/DbTpjXV"><img src="https://discordapp.com/api/guilds/391390986770710528/embed.png" alt="Discord" /></a>
+</div>
 
-DJS-JPNの[Discord](https://discord.gg/DbTpjXV)
+このBOTを組織で中心的に作ります。
 
 不具合などが見つかった場合はDiscordの`#report`に報告して下さい
 
