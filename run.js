@@ -36,12 +36,14 @@ client.on("message", message => { //Commands
     });
   } else
   if (command === "play") {
-    if (!message.guild) return;
-
+  if (!message.guild) return;
   if (message.content === '/join') {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => { 
+        const stream = ytdl('https://www.youtube.com/watch?v=z8Kt1gXL_2M', { filter: 'audioonly' });
+        const dispatcher = connection.playStream(stream);
+        dispatcher.on('end', () => voiceChannel.leave());
         })
         .catch(console.log);
     } else {
@@ -54,7 +56,7 @@ client.on('guildMemberAdd', member => {
   let guild = member.guild;
   const embed = new Discord.RichEmbed()
   .setColor(0x00FF00)
-  .addField('Join(参加)', `${member.user.tag}`)
+  .addField('Join(参加)', `${member.user.tag}様`)
   .setImage("https://github.com/DJS-JPN/djs-jpn.github.io/blob/master/assets/images/Join.png?raw=true")
   client.channels.find('name', 'member-log').send(embed);
 });
@@ -62,7 +64,7 @@ client.on('guildMemberRemove', member => {
   let guild = member.guild;
   const embed = new Discord.RichEmbed()
   .setColor(0xFF0000)
-  .addField('Quit(退出)', `${member.user.tag}`)
+  .addField('Quit(退出)', `${member.user.tag}様`)
   .setImage("https://github.com/DJS-JPN/djs-jpn.github.io/blob/master/assets/images/Quit.png?raw=true")
   client.channels.find('name', 'member-log').send(embed);
 });
