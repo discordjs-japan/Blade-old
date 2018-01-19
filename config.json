@@ -1,4 +1,6 @@
 {
   "token": "null",
-  "googl": "apikey"
+  "googl": "apikey",
+  "joinmsgchannel": "member-log",
+  "quitmsgchannel": "member-log"
 }
