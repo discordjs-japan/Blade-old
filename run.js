@@ -35,4 +35,20 @@ client.on("message", message => { //Commands
     });
   }
 });
+client.on('guildMemberAdd', member => {
+  let guild = member.guild;
+  const embed = new Discord.RichEmbed()
+  .setColor(0x00FF00)
+  .addField('Join(参加)', `${member.user.tag}`)
+  .setImage("https://github.com/DJS-JPN/djs-jpn.github.io/blob/master/assets/images/Join.png?raw=true")
+  client.channels.find('name', 'member-log').send(embed);
+});
+client.on('guildMemberRemove', member => {
+  let guild = member.guild;
+  const embed = new Discord.RichEmbed()
+  .setColor(0xFF0000)
+  .addField('Quit(退出)', `${member.user.tag}`)
+  .setImage("https://github.com/DJS-JPN/djs-jpn.github.io/blob/master/assets/images/Quit.png?raw=true")
+  client.channels.find('name', 'member-log').send(embed);
+});
 client.login(config.token);
