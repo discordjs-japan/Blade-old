@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const googl = require('goo.gl');
+const ytdl = require('ytdl-core');
 const config = require("./config.json");
 
 const client = new Discord.Client();
@@ -33,6 +34,9 @@ client.on("message", message => { //Commands
     .catch(function (err) {
       message.channel.sendMessage('URL短縮化に失敗しました。エラー内容: `' + err.message + '`');
     });
+  } else
+  if (command === "play") {
+    message.channel.sendMessage("制作中");
   }
 });
 client.on('guildMemberAdd', member => {
