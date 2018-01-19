@@ -58,6 +58,7 @@ client.on('guildMemberAdd', member => {
   .setColor(0x00FF00)
   .addField('Join(参加)', `${member.user.tag}様`)
   .setImage("https://github.com/DJS-JPN/djs-jpn.github.io/blob/master/assets/images/Join.png?raw=true")
+  .setTimestamp()
   client.channels.find('name', config.joinmsgchannel).send(embed);
 });
 client.on('guildMemberRemove', member => {
@@ -66,6 +67,7 @@ client.on('guildMemberRemove', member => {
   .setColor(0xFF0000)
   .addField('Quit(退出)', `${member.user.tag}様`)
   .setImage("https://github.com/DJS-JPN/djs-jpn.github.io/blob/master/assets/images/Quit.png?raw=true")
+  .setTimestamp()
   client.channels.find('name', config.quitmsgchannel).send(embed);
 });
 client.login(config.token);
