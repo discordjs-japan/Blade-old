@@ -6,7 +6,7 @@ const config = require("./config.json");
 const client = new Discord.Client();
 const prefix = "./"
 
-googl.setKey(config.googl);
+googl.setKey(config.google);
 googl.getKey();
 
 client.on("ready", () => {
