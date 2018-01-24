@@ -37,7 +37,6 @@ client.on("message", message => { //Commands
   } else
   if (command === "play") {
   if (!message.guild) return;
-  if (message.content === '/join') {
     if (message.member.voiceChannel) {
       message.member.voiceChannel.join()
         .then(connection => { 
@@ -49,7 +48,6 @@ client.on("message", message => { //Commands
     } else {
       message.reply('ボイスチャンネルに参加した状態でコマンドを実行して下さい。');
     }
-  }
   }
 });
 client.on('guildMemberAdd', member => {
