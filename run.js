@@ -1,13 +1,9 @@
 const Discord = require("discord.js");
-const googl = require('goo.gl');
 const ytdl = require('ytdl-core');
 const config = require("./config.json");
 
 const client = new Discord.Client();
 const prefix = "./"
-
-googl.setKey(config.google);
-googl.getKey();
 
 client.on("ready", () => {
   client.user.setGame('./help');
@@ -27,13 +23,7 @@ client.on("message", message => { //Commands
     message.channel.sendMessage(new Date().getTime() - message.createdTimestamp + "ms");
   } else
   if (command === "avatar") {
-    googl.shorten(message.author.avatarURL)
-    .then(function (shortUrl) {
-      message.channel.sendMessage('\nURL: ' + shortUrl);
-    })
-    .catch(function (err) {
-      message.channel.sendMessage('URL短縮化に失敗しました。エラー内容: `' + err.message + '`');
-    });
+    message.reply(message.author.avatarURL);
   } else
   if (command === "play") {
   if (!message.guild) return;
