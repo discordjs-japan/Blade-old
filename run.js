@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const ytdl = require('ytdl-core');
 const config = require("./config.json");
 
 const client = new Discord.Client();
@@ -24,20 +23,6 @@ client.on("message", message => { //Commands
   } else
   if (command === "avatar") {
     message.reply(message.author.avatarURL);
-  } else
-  if (command === "play") {
-  if (!message.guild) return;
-    if (message.member.voiceChannel) {
-      message.member.voiceChannel.join()
-        .then(connection => { 
-        const stream = ytdl('https://www.youtube.com/watch?v=z8Kt1gXL_2M', { filter: 'audioonly' });
-        const dispatcher = connection.playStream(stream);
-        dispatcher.on('end', () => voiceChannel.leave());
-        })
-        .catch(console.log);
-    } else {
-      message.reply('ボイスチャンネルに参加した状態でコマンドを実行して下さい。');
-    }
   }
 });
 client.on('guildMemberAdd', member => {
@@ -45,7 +30,7 @@ client.on('guildMemberAdd', member => {
   const embed = new Discord.RichEmbed()
   .setColor(0x00FF00)
   .addField('Join(参加)', `${member.user.tag}様`)
-  .setImage("https://github.com/DJS-JPN/djs-jpn.github.io/blob/master/assets/images/Join.png?raw=true")
+  .setImage("https://djs-jpn.ga/assets/images/Join.png")
   .setTimestamp()
   client.channels.find('name', config.joinmsgchannel).send(embed);
 });
@@ -54,7 +39,7 @@ client.on('guildMemberRemove', member => {
   const embed = new Discord.RichEmbed()
   .setColor(0xFF0000)
   .addField('Quit(退出)', `${member.user.tag}様`)
-  .setImage("https://github.com/DJS-JPN/djs-jpn.github.io/blob/master/assets/images/Quit.png?raw=true")
+  .setImage("https://djs-jpn.ga/assets/images/Quit.png")
   .setTimestamp()
   client.channels.find('name', config.quitmsgchannel).send(embed);
 });
