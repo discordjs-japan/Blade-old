@@ -16,7 +16,41 @@ client.on("message", message => { //Commands
   command = command.slice(prefix.length);
   let args = message.content.split(" ").slice(1);
   if (command === "help") {
-    message.channel.sendMessage("**コマンド一覧**\n情報```\n./ping, /avatar\n```");
+    const embed = {
+      "title": "コマンド一覧",
+      "url": "https://djs-jpn.ga/bots/Blade",
+      "color": 16098851,
+      "timestamp": "2018-02-10T11:01:17.280Z",
+      "footer": {
+        "icon_url": "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4",
+        "text": "DJS-JPN"
+      },
+      "thumbnail": {
+        "url": "https://djs-jpn.ga/assets/images/Blade.png"
+      },
+      "author": {
+        "name": "Blade",
+        "url": "https://github.com/DJS-JPN/Blade",
+        "icon_url": "https://djs-jpn.ga/assets/images/Blade.png"
+      },
+      "fields": [
+        {
+          "name": "このBOTについて",
+          "value": "編集中"
+        },
+        {
+          "name": "公式サイト",
+          "value": "[Click here](https:://djs-jpn.ga)",
+          "inline": true
+        },
+        {
+          "name": "バグ報告",
+          "value": "[Click here](https:://discord.gg/DbTpjXV)",
+          "inline": true
+        }
+      ]
+    };
+    channel.send({embed});
   } else
   if (command === "ping") {
     message.channel.sendMessage(new Date().getTime() - message.createdTimestamp + "ms");
