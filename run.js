@@ -50,7 +50,7 @@ client.on("message", message => { //Commands
         }
       ]
     };
-    channel.send({embed});
+    message.channel.send({embed});
   } else
   if (command === "ping") {
     message.channel.sendMessage(new Date().getTime() - message.createdTimestamp + "ms");
@@ -59,6 +59,7 @@ client.on("message", message => { //Commands
     message.reply(message.author.avatarURL);
   }
 });
+/*
 client.on('guildMemberAdd', member => {
   let guild = member.guild;
   const embed = new Discord.RichEmbed()
@@ -77,4 +78,5 @@ client.on('guildMemberRemove', member => {
   .setTimestamp()
   client.channels.find('name', config.quitmsgchannel).send(embed);
 });
+*/
 client.login(config.token);
