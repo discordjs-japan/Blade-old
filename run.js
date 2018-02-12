@@ -17,8 +17,6 @@ client.on("message", message => { //Commands
   let args = message.content.split(" ").slice(1);
   if (command === "help") {
     const embed = {
-      "title": "Blade",
-      "url": "https://github.com/DJS-JPN/Blade",
       "color": 16098851,
       "timestamp": new Date(),
       "footer": {
@@ -52,8 +50,13 @@ client.on("message", message => { //Commands
           "inline": true
         },
         {
-          "name": "バグ報告",
+          "name": "バグ報告・公式Discord",
           "value": "https://goo.gl/TWb2tB",
+          "inline": true
+        },
+        {
+          "name": "GitHub",
+          "value": "https://goo.gl/iwxSoG",
           "inline": true
         }
       ]
