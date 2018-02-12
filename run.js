@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const prefix = "./"
 
 client.on("ready", () => {
-  client.user.setGame('./help');
+  client.user.setGame('djs-jpn.ga｜./help');
   console.log("起動完了\nこのBOTはDJS-JPNによって開発されました。\nBOTを停止するには Ctrl+C を押して下さい。");
 });
 
