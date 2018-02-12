@@ -17,35 +17,43 @@ client.on("message", message => { //Commands
   let args = message.content.split(" ").slice(1);
   if (command === "help") {
     const embed = {
-      "title": "コマンド一覧",
-      "url": "https://djs-jpn.ga/bots/Blade",
+      "title": "Blade",
+      "url": "https://github.com/DJS-JPN/Blade",
       "color": 16098851,
-      "timestamp": "2018-02-10T11:01:17.280Z",
+      "timestamp": new Date(),
       "footer": {
         "icon_url": "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4",
         "text": "DJS-JPN"
       },
       "thumbnail": {
-        "url": "https://djs-jpn.ga/assets/images/Blade.png"
+        "url": client.user.avatarURL
       },
       "author": {
-        "name": "Blade",
-        "url": "https://github.com/DJS-JPN/Blade",
-        "icon_url": "https://djs-jpn.ga/assets/images/Blade.png"
+        "name": "コマンド一覧",
+        "url": "https://djs-jpn.ga/bots/Blade",
+        "icon_url": client.user.avatarURL
       },
       "fields": [
         {
-          "name": "このBOTについて",
-          "value": "編集中"
+          "name": "./help",
+          "value": "コマンド一覧を表示"
+        },
+        {
+          "name": "./ping",
+          "value": "通信速度を測定",
+        },
+        {
+          "name": "./avatar",
+          "value": "自分のプロフィール画像を表示",
         },
         {
           "name": "公式サイト",
-          "value": "[Click here](https:://djs-jpn.ga)",
+          "value": "https://goo.gl/BZgMCe",
           "inline": true
         },
         {
           "name": "バグ報告",
-          "value": "[Click here](https:://discord.gg/DbTpjXV)",
+          "value": "https://goo.gl/TWb2tB",
           "inline": true
         }
       ]
