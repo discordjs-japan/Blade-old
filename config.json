@@ -1,3 +1,5 @@
 {
-  "token": "tokenを入れて下さい"
+  "token": "tokenを入れて下さい",
+  "prefix": "./",
+  "lang": "ja_jp",
 }
