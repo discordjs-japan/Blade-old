@@ -6,6 +6,7 @@ const DiscordJS = require("discord.js"),
 var Blade = new DiscordJS.Client();
 var Config = require("./config.json")
 Blade.login(Config.token);
+console.time("ログインにかかった時間");
 var Prefix = "./",
     Lang = "ja_jp",
     TemporaryFileContents = "",
@@ -26,6 +27,7 @@ var Prefix = "./",
     usweststats = "",
     brazilstats = "",
     allstats = "",
+    Split,
     options = {
         url: "https://srhpyqt94yxb.statuspage.io/api/v2/summary.json",
         headers: {
@@ -39,10 +41,13 @@ var Prefix = "./",
             "Content-Type": "application/json; charset=utf-8"
         },
         json: true,
+    },
+    optionstranslate = {
     };
 
 Blade
     .on("ready", () => {
+        console.timeEnd("ログインにかかった時間");
         Blade.user.setStatus("available")
         Blade.user.setPresence({
             game: {
@@ -60,11 +65,11 @@ Blade
         switch (Split[0]) {
             case "help":
                 const embed = {
-                    "color": 16098851,
+                    "color": 0x00FF00,
                     "timestamp": new Date(),
                     "footer": {
                         "icon_url": "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4",
-                        "text": "Developed By DJS-JPN"
+                        "text": "DEVELOPED BY DJS-JPN"
                     },
                     "thumbnail": {
                         "url": Blade.user.avatarURL
@@ -86,6 +91,14 @@ Blade
                         {
                             "name": "avatar",
                             "value": "自分のプロフィール画像を表示",
+                        },
+                        {
+                            "name": "translate",
+                            "value": "テキストを翻訳",
+                        },
+                        {
+                            "name": "discordstats",
+                            "value": "Discordのサーバー状態を確認",
                         },
                         {
                             "name": "公式サイト",
@@ -114,6 +127,50 @@ Blade
                 break;
             case "serverstats":
                 //サーバーステータス
+                break;
+            case "translate":
+                if (!Split[1]) {
+                    sendEmbed(m, "翻訳したい内容を入力してください。");
+                } else {
+                    if (!Split[2]) {
+                        optionstranslate = {
+                            method: "POST",
+                            url: "https://translate.google.com/translate_a/single" + "?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8" + "&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e",
+                            headers: {
+                                'Content-Type': "application/json; charset=utf-8",
+                                'User-Agent': "AndroidTranslate",
+                            },
+                            form: {
+                                "sl": "auto",
+                                "tl": "ja_jp",
+                                "q": Split[1],
+                            },
+                            json: true,
+                        }
+                    } else {
+                        optionstranslate = {
+                            method: "POST",
+                            url: "https://translate.google.com/translate_a/single" + "?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8" + "&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e",
+                            headers: {
+                                'Content-Type': "application/json; charset=utf-8",
+                                'User-Agent': "AndroidTranslate",
+                            },
+                            form: {
+                                "sl": "auto",
+                                "tl": Split[2],
+                                "q": Split[1],
+                            },
+                            json: true,
+                        }
+                    }
+                    Request(optionstranslate, function (e, r, b) {
+                        if (e) {
+                            sendEmbed(m, "内部エラーが発生しました。翻訳する内容または翻訳先の言語が無効な可能性があります。")
+                        } else {
+                            sendEmbed(m, "翻訳結果：" + b.sentences[0].trans)
+                        }
+                    });
+                }
                 break;
             case "discordstats":
                 m.channel.startTyping();
@@ -232,7 +289,8 @@ Blade
                             .addField("US West", usweststats, true)
                             .addField("Brazil", brazilstats, true)
                             .addField("最後に行われたメンテナンス", lastmaintenances + "（" + lastmaintenancesresolved + "）")
-                            .setColor("#FFFFFF");
+                            .setColor("#0x00FF00")
+                            .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                         m.channel.send(Embed);
                         apistats = "";
                         euweststats = "";
@@ -282,7 +340,8 @@ Blade.on('guildMemberRemove', member => {
 function sendEmbed(context, message) {
     Embed = new DiscordJS.RichEmbed()
         .setTitle(message)
-        .setColor("#FFFFFF")
+        .setColor("#0x00FF00")
+        .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4");
     context.channel.send(Embed);
 }
 console.timeEnd("全コードの読み込みにかかった時間");
