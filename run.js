@@ -64,7 +64,7 @@ Blade
                     "timestamp": new Date(),
                     "footer": {
                         "icon_url": "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4",
-                        "text": "DJS-JPN"
+                        "text": "Created By DJS-JPN"
                     },
                     "thumbnail": {
                         "url": Blade.user.avatarURL
