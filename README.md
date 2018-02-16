@@ -1,15 +1,21 @@
-# Blade(刀)
-<div>
+> # Blade（刀）
+<div> 
     <a href="https://discord.gg/DbTpjXV"><img src="https://discordapp.com/api/guilds/391390986770710528/embed.png" alt="Discord" /></a>
 </div>
 
-[公式サイト](https://djs-jpn.ga)
+> ### Bladeとは？ 
 
-このBOTを組織で中心的に作ります。
+Bladeは[DJS-JPN](https://djs-jpn.ga)が**オープンソース**で開発するDiscordのボットです。
+
+> ### 使用する際の注意
+
+使用する際はNode.js（7.0.0以降）をインストールお願いします（7.0.0以降でないとエラーが出ますのでお気を付けください）
+
+> ### 不具合が見つかった場合
 
 不具合などが見つかった場合はDiscordの`#report`またはこのレポジトリのIssuesに報告するようお願いいたします。
 
-使用する際はNode.js（7.0.0以降）をインストールお願いします（7.0.0以降でないとエラーが出ますのでお気を付けください）
+その他わからないことがありましたら[DJS-JPN公式サイト](https://djs-jpn.ga)のヘルプ閲覧をお願いします
 
 ## MIT License
 
