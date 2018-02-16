@@ -15,7 +15,15 @@ Bladeは[DJS-JPN](https://djs-jpn.ga)が**オープンソース**で開発する
 
 不具合などが見つかった場合はDiscordの`#report`またはこのレポジトリのIssuesに報告するようお願いいたします。
 
-その他わからないことがありましたら[DJS-JPN公式サイト](https://djs-jpn.ga)のヘルプ閲覧をお願いします
+> ### わからないことがあった場合
+その他わからないことがありましたら[DJS-JPN公式サイト](https://djs-jpn.ga)の[ヘルプ](https://djs-jpn.ga/help)の確認をお願いします
+
+> ### 関連リンク
+
+[DJS-JPN](https://djs-jpn.ga)  
+[DJS-JPN | ヘルプ](https://djs-jpn.ga/help)  
+[DJS-JPN (Discord)](https://discord.gg/DbTpjXV)  
+[DJS-JPN (Google+)](https://goo.gl/53RQNf)
 
 ## MIT License
 
