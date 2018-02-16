@@ -68,6 +68,15 @@ client.on("message", message => { //Commands
   } else
   if (command === "avatar") {
     message.reply(message.author.avatarURL);
+  } else
+  if (command === "server") {
+    //サーバーステータス
+  }
+  if (command === "info") {
+    //ユーザーステータス
+  } else
+  if (command === "") {
+    //考えてる
   }
 });
 /*
