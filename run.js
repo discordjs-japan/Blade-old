@@ -4,10 +4,10 @@ const { parsed: Config } = require('dotenv').load()
 Blade.login(Config.Token);
 console.time("全コードの読み込みにかかった時間");
 console.time("ログインにかかった時間");
-const Request = require("request"),
-    fetch = require('node-fetch'),
-    Prefix = Config.Prefix,
-    Language = require("./language.json")[Config.Language];
+const Request = require("request")
+const fetch = require('node-fetch')
+const Prefix = Config.Prefix
+const Language = require('./language.js')[Config.Language];
 
 Blade
     .on("ready", () => {
