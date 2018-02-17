@@ -9,27 +9,7 @@ const fetch = require('node-fetch')
 //Japanese = require("./language/ja_jp.json",
 //English = require("./language/en_us.json"),
 //Language = env.LANGUAGE,
-var Prefix = env.PREFIX,
-    TemporaryFileContents = "",
-    botsafemsg = "",
-    Split,
-    Embed,
-    options = {
-        url: "https://srhpyqt94yxb.statuspage.io/api/v2/summary.json",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8"
-        },
-        json: true,
-    },
-    options2 = {
-        url: "https://srhpyqt94yxb.statuspage.io/api/v2/incidents.json",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8"
-        },
-        json: true,
-    },
-    optionstranslate = {
-    };
+const Prefix = env.PREFIX
 
 Blade
     .on("ready", () => {
@@ -47,8 +27,8 @@ Blade
     .on("message", async m => {
         if (m.author.bot) return;
         if (!m.content.startsWith(Prefix)) return;
-        Split = m.content.slice(Prefix.length).split(" ");
-        switch (Split[0]) {
+        const [cmd, ...args] = m.content.slice(Prefix.length).split(" ");
+        switch (cmd) {
             case "help":
                 const embed = {
                     "color": 0x00FF00,
@@ -116,33 +96,31 @@ Blade
                 break;
             case "translate":
             case "t":
-                if (!Split[1]) {
+                const [lang, source] = args
+                if (!lang) {
                     sendEmbed(m, "翻訳したい言語を入力してください。");
                 } else {
-                    if (!Split[2]) {
+                    if (!source) {
                         sendEmbed(m, "翻訳したい内容を入力してください。")
-                    } else {
-                        optionstranslate = {
-                            method: "POST",
-                            url: "https://translate.google.com/translate_a/single" + "?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8" + "&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e",
-                            headers: {
-                                'Content-Type': "application/json; charset=utf-8",
-                                'User-Agent': "AndroidTranslate",
-                            },
-                            form: {
-                                "sl": "auto",
-                                "tl": Split[1],
-                                "q": m.content.slice(m.content.search(Split[2])),
-                            },
-                            json: true,
-                        }
-                    }
-                    console.log(m.content.slice(m.content.search(Split[2])));
-                    Request(optionstranslate, function (e, r, b) {
+                    console.log(m.content.slice(m.content.search(source)));
+                    Request({
+                        method: "POST",
+                        url: "https://translate.google.com/translate_a/single" + "?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8" + "&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e",
+                        headers: {
+                            'Content-Type': "application/json; charset=utf-8",
+                            'User-Agent': "AndroidTranslate",
+                        },
+                        form: {
+                            "sl": "auto",
+                            "tl": lang,
+                            "q": m.content.slice(m.content.search(source)),
+                        },
+                        json: true,
+                    }, function (e, r, b) {
                         if (e) {
                             sendEmbed(m, "翻訳に失敗しました。翻訳する内容または翻訳先の言語が無効な可能性があります。")
                         } else {
-                            m.channel.send(m.author.tag + ":" + b.sentences[0].trans + "\nOriginal:" + m.content.slice(m.content.search(Split[2])));
+                            m.channel.send(m.author.tag + ":" + b.sentences[0].trans + "\nOriginal:" + m.content.slice(m.content.search(search)));
                         }
                     });
                 }
@@ -195,7 +173,7 @@ Blade
     .on('guildMemberAdd', m => {
         if (env.WELCOMECHANNEL != "Disable") {
             if (m.user.bot == false) {
-                Embed = new DiscordJS.RichEmbed()
+                const Embed = new DiscordJS.RichEmbed()
                     .addField("新しいユーザーがサーバーに参加しました。", "参加したユーザー：" + m.user.tag, true)
                     .addField(m.user.username + "さん。ようこそ！", Prefix + "helpでコマンド一覧を確認できます！", true)
                     .addField("バグ報告などはこちらへ", "https://discord.gg/DbTpjXV")
@@ -206,9 +184,9 @@ Blade
                 Blade.channels.get("name", env.WELCOMECHANNEL).send(Embed);
             } else {
                 checkbotsafety(m);
-                Embed = new DiscordJS.RichEmbed()
+                const Embed = new DiscordJS.RichEmbed()
                     .addField("新しいボットがサーバーに参加しました。", "参加したボット：" + m.user.tag, true)
-                    .addField("このボットの信頼性", botsafemsg, true)
+                    .addField("このボットの信頼性", checkbotsafety(), true)
                     .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/DbTpjXV")
                     .addField("このユーザーはボットです。", "ID：" + m.user.id)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
@@ -221,7 +199,7 @@ Blade
     .on('guildMemberRemove', m => {
         if (env.WELCOMECHANNEL != "Disable") {
             if (m.user.bot == false) {
-                Embed = new DiscordJS.RichEmbed()
+                const Embed = new DiscordJS.RichEmbed()
                     .addField("ユーザーがサーバーから退出しました。", "退出したユーザー：" + m.user.tag, true)
                     .addField(m.user.username + "さん。さようなら...", "またどこかでお会いしましょう！", true)
                     .addField("バグ報告などはこちらへ", "https://discord.gg/DbTpjXV")
@@ -232,10 +210,10 @@ Blade
                 Blade.channels.get("name", env.WELCOMECHANNEL).send(Embed);
             } else {
                 checkbotsafety(m);
-                Embed = new DiscordJS.RichEmbed()
+                const Embed = new DiscordJS.RichEmbed()
                     .addField("ボットがサーバーから退出しました。", "退出したボット：" + m.user.tag, true)
                     .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/DbTpjXV")
-                    .addField("このボットの信頼性", botsafemsg, true)
+                    .addField("このボットの信頼性", checkbotsafety(), true)
                     .addField("このユーザーはボットです。", "ID：" + m.user.id)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
@@ -244,47 +222,46 @@ Blade
             }
         }
     });
+
 function sendEmbed(context, message) {
-    Embed = new DiscordJS.RichEmbed()
+    const Embed = new DiscordJS.RichEmbed()
         .setTitle(message)
         .setColor("#0x00FF00")
         .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4");
     context.channel.send(Embed);
 }
-function checkbotsafety(context) {
-    if (
-        m.user.id == "235088799074484224" || /*Rythm*/
-        m.user.id == "155149108183695360" || /*Dyno*/
-        m.user.id == "222853335877812224" || /*Server Hound*/
-        m.user.id == "294882584201003009" || /*Giveaway bot*/
-        m.user.id == "245675252821000193" || /*Gaius Cicereius*/
-        m.user.id == "367317166573355008" || /*うううさんのRPGⅡ*/
-        m.user.id == "346650373613682688" || /*ボットちゃん*/
-        m.user.id == "378929559862640650" || /*sou-trade*/
-        m.user.id == "404873188947001355" || /*C-Coin*/
-        m.user.id == "406292122963017749" || /*C-Casino*/
-        m.user.id == "394876010438328321" || /*Greeting Bot*/
-        m.user.id == "83010416610906112" || /*Night Bot*/
-        m.user.id == "153613756348366849" || /*Typical Bot*/
-        m.user.id == "265218275451863041" || /*GuideBot*/
-        m.user.id == "241694957490929664" || /*MDN Duh*/
-        m.user.id == "172002275412279296" || /*Tatsumaki*/
-        m.user.id == "376433393262526476" || /*DSL Bot*/
-        m.user.id == "324829950639341568" || /*Discordちゃんねる*/
-        m.user.id == "302050872383242240" || /*Disboard*/
-        m.user.id == "240545475118235648" /*BugBot*/
-    ) {
-        botsafemsg = "認証済み";
-    } else if (
-        m.user.id == "410775769980338177" || /*Coded Beta*/
-        m.user.id == "407775279642050560" || /*Coded*/
-        m.user.id == "411900942577827840" || /*Blade*/
-        m.user.id == "399018614382133248" || /*Red Music*/
-        m.user.id == "388258872395300865" /*Red Return*/
-    ) {
-        botsafemsg = "信頼";
-    } else {
-        botsafemsg = "不明";
-    }
+
+function checkbotsafety(member) {
+    if ([
+        '235088799074484224', // Rythm
+        '155149108183695360', // Dyno
+        '222853335877812224', // Server Hound
+        '294882584201003009', // Giveaway bot
+        '245675252821000193', // Gaius Cicereius
+        '367317166573355008', // うううさんのRPGⅡ
+        '346650373613682688', // ボットちゃん
+        '378929559862640650', // sou-trade
+        '404873188947001355', // C-Coin
+        '406292122963017749', // C-Casino
+        '394876010438328321', // Greeting Bot
+        '83010416610906112',  // Night Bot
+        '153613756348366849', // Typical Bot
+        '265218275451863041', // GuideBot
+        '241694957490929664', // MDN Duh
+        '172002275412279296', // Tatsumaki
+        '376433393262526476', // DSL Bot
+        '324829950639341568', // Discordちゃんねる
+        '302050872383242240', // Disboard
+        '240545475118235648', // BugBot
+    ].includes(member.user.id)) return '認証済み'
+    else if ([
+        '410775769980338177', // Coded Beta
+        '407775279642050560', // Coded
+        '411900942577827840', // Blade
+        '399018614382133248', // Red Music
+        '388258872395300865', // Red Return
+    ]) return '信頼'
+    else return '不明'
 }
+
 console.timeEnd("全コードの読み込みにかかった時間");
