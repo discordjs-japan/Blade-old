@@ -11,6 +11,13 @@ Bladeは[DJS-JPN](https://djs-jpn.ga)が**オープンソース**で開発する
 
 使用する際はNode.js（7.0.0以降）をインストールお願いします（7.0.0以降でないとエラーが出ますのでお気を付けください）
 
+BladeのライセンスはMIT Licenseに設定されています。  
+
+MIT Licenseについて  
+
+**著作権の表示を保持する事  
+作成者や著作権者は製品に対しての義務や責任を何ら負わないこと**
+
 > ### 不具合が見つかった場合
 
 不具合などが見つかった場合はDiscordの`#report`またはこのレポジトリのIssuesに報告するようお願いいたします。
@@ -23,7 +30,7 @@ Bladeは[DJS-JPN](https://djs-jpn.ga)が**オープンソース**で開発する
 [DJS-JPN](https://djs-jpn.ga)  
 [DJS-JPN | ヘルプ](https://djs-jpn.ga/help)  
 [DJS-JPN (Discord)](https://discord.gg/DbTpjXV)  
-[DJS-JPN (Google+)](https://goo.gl/53RQNf)
+[DJS-JPN (Google+)](https://plus.google.com/communities/102065506910522266374)
 
 ## MIT License
 
