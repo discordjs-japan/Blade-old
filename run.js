@@ -15,11 +15,11 @@ Blade
         Blade.user.setStatus("available")
         Blade.user.setPresence({
             game: {
-                name: "djs-jpn.ga | Type " + Prefix + "help to show help",
+                name: `djs-jpn.ga | Type ${Prefix}help to show help`,
                 type: 1
             }
         });
-        console.log(Language.loginsuccess + "\n" + Language.botdeveloped + "\n" + Language.ctrlpluscstop);
+        console.log(`${Language.loginsuccess}\n${Language.botdeveloped}\n${Language.ctrlpluscstop}`);
     })
 
     .on("message", async m => {
@@ -46,31 +46,31 @@ Blade
                     "fields": [
                         {
                             "name": "help",
-                            "value": "" + Language.helphelp
+                            "value": Language.helphelp
                         },
                         {
                             "name": "ping",
-                            "value": "" + Language.helpping,
+                            "value": Language.helpping,
                         },
                         {
                             "name": "avatar",
-                            "value": "" + Language.helpavatar,
+                            "value": Language.helpavatar,
                         },
                         {
                             "name": "translate | t",
-                            "value": "" + Language.helptranslate,
+                            "value": Language.helptranslate,
                         },
                         {
                             "name": "discordstats",
-                            "value": "" + Language.helpdiscordstats,
+                            "value": Language.helpdiscordstats,
                         },
                         {
-                            "name": "" + Language.helpofficial,
+                            "name": Language.helpofficial,
                             "value": "https://djs-jpn.ga",
                             "inline": true
                         },
                         {
-                            "name": "" + Language.helpbugreport,
+                            "name": Language.helpbugreport,
                             "value": "https://discord.gg/DbTpjXV",
                             "inline": true
                         },
@@ -84,7 +84,7 @@ Blade
                 m.channel.send({ embed });
                 break;
             case "ping":
-                sendEmbed(m, "ポン！Pingの確認に成功しました！ボットのPingは" + Math.floor(Blade.ping) + "msです！"/*このメッセージの作成速度は" + new Date().getTime() - m.createdTimestamp + "msです！"*/);
+                sendEmbed(m, `ポン！Pingの確認に成功しました！ボットのPingは${Math.floor(Blade.ping)}msです！`/*+ `\nこのメッセージの作成速度は${new Date().getTime() - m.createdTimestampms}です！`*/);
                 break;
             case "avatar":
                 m.reply(m.author.avatarURL);
@@ -117,8 +117,8 @@ Blade
                             if (e) {
                                 sendEmbed(m, Language.transfailed)
                             } else {
-                                m.channel.send(m.author.tag + ":" + b.sentences[0].trans + "\n" + Language.transoriginal + text);
-                                console.log(m.author.tag + ":" + b.sentences[0].trans + "\n" + Language.transoriginal + text)
+                                m.channel.send(`${m.author.tag}:${b.sentences[0].trans}\n${Language.transoriginal}${text}`)
+                                console.log(`${m.author.tag}:${b.sentences[0].trans}\n${Language.transoriginal}${text}`)
                             }
                         });
                     } else {
@@ -135,7 +135,7 @@ Blade
                 const incidents = await _incidents.json()
                 const status = summary.components.map(e => ({
                     name: e.name,
-                    value: (e.status === 'operational') ? "" + Language.discordstatsnormal : "" + Language.discordstatsabnormal,
+                    value: (e.status === 'operational') ? Language.discordstatsnormal : Language.discordstatsabnormal,
                     inline: true,
                 }))
                 const allstats = (summary.status.description == 'All Systems Operational')
@@ -144,8 +144,8 @@ Blade
                 const maintenance = {
                     at: incidents.incidents[0].created_at,
                     resolved: (incidents.incidents[0].status == "resolved")
-                        ? "" + Language.discordstatsresolved
-                        : "" + Language.discordstatsreunresolved,
+                        ? Language.discordstatsresolved
+                        : Language.discordstatsreunresolved,
                 }
                 console.timeEnd("サーバーの状態の取得にかかった時間");
                 m.channel.stopTyping();
@@ -167,7 +167,7 @@ Blade
                 })
                 break;
             default:
-                sendEmbed(m, "不明なコマンドです。" + Prefix + "helpでコマンドに誤字、脱字、コマンドが存在するか確認をお願いいたします。")
+                sendEmbed(m, `不明なコマンドです。${Prefix}helpでコマンドに誤字、脱字、コマンドが存在するか確認をお願いいたします。`)
                 break;
         }
     })
@@ -175,10 +175,10 @@ Blade
         if (Config.WelcomeChannel != "disable") {
             if (m.user.bot == false) {
                 const Embed = new DiscordJS.RichEmbed()
-                    .addField("新しいユーザーがサーバーに参加しました。", "参加したユーザー：" + m.user.tag, true)
-                    .addField(m.user.username + "さん。ようこそ！", Prefix + "helpでコマンド一覧を確認できます！", true)
+                    .addField("新しいユーザーがサーバーに参加しました。", `参加したユーザー：${m.user.tag}`, true)
+                    .addField(`${m.user.username}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
                     .addField("バグ報告などはこちらへ", "https://discord.gg/DbTpjXV")
-                    .addField("このユーザーはボットではありません。", "ID：" + m.user.id)
+                    .addField("このユーザーはボットではありません。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
                     .setColor("#FFFFFF");
@@ -186,10 +186,10 @@ Blade
             } else {
                 checkbotsafety(m);
                 const Embed = new DiscordJS.RichEmbed()
-                    .addField("新しいボットがサーバーに参加しました。", "参加したボット：" + m.user.tag, true)
+                    .addField("新しいボットがサーバーに参加しました。", `参加したボット：${m.user.tag}`, true)
                     .addField("このボットの信頼性", checkbotsafety(), true)
-                    .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/DbTpjXV")
-                    .addField("このユーザーはボットです。", "ID：" + m.user.id)
+                    .addField(`このボットを使用して${Blade.user.id}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
+                    .addField("このユーザーはボットです。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
                     .setColor("#FFFFFF");
@@ -201,10 +201,10 @@ Blade
         if (Config.WelcomeChannel != "disable") {
             if (m.user.bot == false) {
                 const Embed = new DiscordJS.RichEmbed()
-                    .addField("ユーザーがサーバーから退出しました。", "退出したユーザー：" + m.user.tag, true)
-                    .addField(m.user.username + "さん。さようなら...", "またどこかでお会いしましょう！", true)
+                    .addField("ユーザーがサーバーから退出しました。", `退出したユーザー：${m.user.tag}`, true)
+                    .addField(`${m.user.username}さん。さようなら...`, "またどこかでお会いしましょう！", true)
                     .addField("バグ報告などはこちらへ", "https://discord.gg/DbTpjXV")
-                    .addField("このユーザーはボットではありません。", "ID：" + m.user.id)
+                    .addField("このユーザーはボットではありません。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
                     .setColor("#0x00FF00")
@@ -212,10 +212,10 @@ Blade
             } else {
                 checkbotsafety(m);
                 const Embed = new DiscordJS.RichEmbed()
-                    .addField("ボットがサーバーから退出しました。", "退出したボット：" + m.user.tag, true)
-                    .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/DbTpjXV")
+                    .addField("ボットがサーバーから退出しました。", `退出したボット：${m.user.tag}`, true)
+                    .addField(`このボットを使用して${Blade.user.id}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
                     .addField("このボットの信頼性", checkbotsafety(), true)
-                    .addField("このユーザーはボットです。", "ID：" + m.user.id)
+                    .addField("このユーザーはボットです。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
                     .setColor("#0x00FF00")
