@@ -105,7 +105,7 @@ Blade
                 m.channel.send({ embed });
                 break;
             case "ping":
-                sendEmbed(m, "Pong！Pingの確認に成功しました！ボットのPingは" + Blade.ping + "msです！"/*このメッセージの作成速度は" + new Date().getTime() - m.createdTimestamp + "msです！"*/);
+                sendEmbed(m, "ポン！Pingの確認に成功しました！ボットのPingは" + Math.floor(Blade.ping) + "msです！"/*このメッセージの作成速度は" + new Date().getTime() - m.createdTimestamp + "msです！"*/);
                 break;
             case "avatar":
                 m.reply(m.author.avatarURL);
@@ -151,34 +151,36 @@ Blade
                 console.time("サーバーの状態の取得にかかった時間");
                 Request(options, function (e, r, b) {
                     const status = b.components.map(e => ({
-                      name: e.name,
-                      value: (e.status === 'operational') ? '正常' : '不安定',
-                      inline: true,
+                        name: e.name,
+                        value: (e.status === 'operational') ? '正常' : '不安定',
+                        inline: true,
                     }))
                     const allstats = (b.status.description == 'All Systems Operational')
-                      ? '全サーバーは正常です。'
-                      : 'サーバーが不安定な可能性があります。'
+                        ? '全サーバーは正常です。'
+                        : 'サーバーが不安定な可能性があります。'
                     Request(options2, function (e, r, b) {
                         const maintenance = {
-                          at: b.incidents[0].created_at,
-                          resolved: (b.incidents[0].status == "resolved") ? '解決済み' : '未解決',
+                            at: b.incidents[0].created_at,
+                            resolved: (b.incidents[0].status == "resolved") ? '解決済み' : '未解決',
                         }
                         console.timeEnd("サーバーの状態の取得にかかった時間");
                         m.channel.stopTyping();
-                        m.channel.send({ embed: {
-                          color: 0x00FF00,
-                          footer: {
-                            icon_url: 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4',
-                            text: 'DEVELOPED BY DJS-JPN',
-                          },
-                          fields: [{
-                            name: 'サーバーの状態',
-                            value: allstats,
-                          }, ...status, {
-                            name: '最後に行われたメンテナンス',
-                            value: `${maintenance.at}（${maintenance.resolved}）`,
-                          }]
-                        }})
+                        m.channel.send({
+                            embed: {
+                                color: 0x00FF00,
+                                footer: {
+                                    icon_url: 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4',
+                                    text: 'DEVELOPED BY DJS-JPN',
+                                },
+                                fields: [{
+                                    name: 'サーバーの状態',
+                                    value: allstats,
+                                }, ...status, {
+                                    name: '最後に行われたメンテナンス',
+                                    value: `${maintenance.at}（${maintenance.resolved}）`,
+                                }]
+                            }
+                        })
                     });
                 });
                 break;
