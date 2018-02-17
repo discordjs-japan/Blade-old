@@ -1,8 +1,6 @@
 const DiscordJS = require("discord.js");
 var Blade = new DiscordJS.Client();
-const File = require("fs"),
-    FileExtra = require("fs-extra"),
-    Request = require("request");
+const Request = require("request");
 var Config = require("./config.json"),
     //Japanese = require("./language/ja_jp.json"),
     //English = require("./language/en_us.json"),
