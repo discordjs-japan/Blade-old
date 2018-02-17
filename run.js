@@ -76,7 +76,7 @@ Blade
                         },
                         {
                             "name": "GitHub",
-                            "value": "https://goo.gl/iwxSoG",
+                            "value": "https://github.com/DJS-JPN/Blade",
                             "inline": true
                         }
                     ]
@@ -175,8 +175,8 @@ Blade
         if (Config.WelcomeChannel != "disable") {
             if (m.user.bot == false) {
                 const Embed = new DiscordJS.RichEmbed()
-                    .addField("新しいユーザーがサーバーに参加しました。", `参加したユーザー：${m.user.tag}`, true)
-                    .addField(`${m.user.username}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
+                    .addFields("新しいユーザーがサーバーに参加しました。", `参加したユーザー：${m.user.tag}`, true)
+                    .addField(`${m.user.tag}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
                     .addField("バグ報告などはこちらへ", "https://discord.gg/DbTpjXV")
                     .addField("このユーザーはボットではありません。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
@@ -188,7 +188,7 @@ Blade
                 const Embed = new DiscordJS.RichEmbed()
                     .addField("新しいボットがサーバーに参加しました。", `参加したボット：${m.user.tag}`, true)
                     .addField("このボットの信頼性", checkbotsafety(), true)
-                    .addField(`このボットを使用して${Blade.user.id}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
+                    .addField(`このボットを使用して${Blade.user.username}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
                     .addField("このユーザーはボットです。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
@@ -202,9 +202,9 @@ Blade
             if (m.user.bot == false) {
                 const Embed = new DiscordJS.RichEmbed()
                     .addField("ユーザーがサーバーから退出しました。", `退出したユーザー：${m.user.tag}`, true)
-                    .addField(`${m.user.username}さん。さようなら...`, "またどこかでお会いしましょう！", true)
+                    .addField(`${m.user.tag}さん。さようなら...`, "またどこかでお会いしましょう！", true)
                     .addField("バグ報告などはこちらへ", "https://discord.gg/DbTpjXV")
-                    .addField("このユーザーはボットではありません。", `ID：${m.user.id}`)
+                    .addField("このユーザーはボットではありません。", `ID：${m.user.tag}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
                     .setColor("#0x00FF00")
@@ -213,7 +213,7 @@ Blade
                 checkbotsafety(m);
                 const Embed = new DiscordJS.RichEmbed()
                     .addField("ボットがサーバーから退出しました。", `退出したボット：${m.user.tag}`, true)
-                    .addField(`このボットを使用して${Blade.user.id}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
+                    .addField(`このボットを使用して${Blade.user.tag}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
                     .addField("このボットの信頼性", checkbotsafety(), true)
                     .addField("このユーザーはボットです。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
