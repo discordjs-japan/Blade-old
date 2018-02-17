@@ -7,23 +7,6 @@ var Config = require("./config.json"),
     //Language = Config.language,
     Prefix = Config.prefix,
     TemporaryFileContents = "",
-    apistats = "",
-    euweststats = "",
-    gatewaystats = "",
-    cloudflarestats = "",
-    eucentralstats = "",
-    mediaproxystats = "",
-    voicestats = "",
-    singaporestats = "",
-    japanstats = "",
-    russiastats = "",
-    hongkongstats = "",
-    uscentralstats = "",
-    useaststats = "",
-    ussouthstats = "",
-    usweststats = "",
-    brazilstats = "",
-    allstats = "",
     botsafemsg = "",
     Split,
     Embed,
@@ -179,139 +162,35 @@ Blade
                 m.channel.startTyping();
                 console.time("サーバーの状態の取得にかかった時間");
                 Request(options, function (e, r, b) {
-                    if (b.components[0].status == "operational") {
-                        apistats = "正常";
-                    } else {
-                        apistats = "不安定";
-                    }
-                    if (b.components[1].status == "operational") {
-                        euweststats = "正常";
-                    } else {
-                        euweststats = "不安定";
-                    }
-                    if (b.components[2].status == "operational") {
-                        gatewaystats = "正常";
-                    } else {
-                        gatewaystats = "不安定";
-                    }
-                    if (b.components[4].status == "operational") {
-                        cloudflarestats = "正常";
-                    } else {
-                        cloudflarestats = "不安定";
-                    }
-                    if (b.components[6].status == "operational") {
-                        mediaproxystats = "正常";
-                    } else {
-                        mediaproxystats = "不安定";
-                    }
-                    if (b.components[3].status == "operational") {
-                        eucentralstats = "正常";
-                    } else {
-                        eucentralstats = "不安定";
-                    }
-                    if (b.components[5].status == "operational") {
-                        singaporestats = "正常";
-                    } else {
-                        singaporestats = "不安定";
-                    }
-                    if (b.components[16].status == "operational") {
-                        japanstats = "正常";
-                    } else {
-                        japanstats = "不安定";
-                    }
-                    if (b.components[15].status == "operational") {
-                        russiastats = "正常";
-                    } else {
-                        russiastats = "不安定";
-                    }
-                    if (b.components[14].status == "operational") {
-                        hongkongstats = "正常";
-                    } else {
-                        hongkongstats = "不安定";
-                    }
-                    if (b.components[9].status == "operational") {
-                        uscentralstats = "正常";
-                    } else {
-                        uscentralstats = "不安定";
-                    }
-                    if (b.components[10].status == "operational") {
-                        useaststats = "正常";
-                    } else {
-                        useaststats = "不安定";
-                    }
-                    if (b.components[11].status == "operational") {
-                        ussouthstats = "正常";
-                    } else {
-                        ussouthstats = "不安定";
-                    }
-                    if (b.components[12].status == "operational") {
-                        usweststats = "正常";
-                    } else {
-                        usweststats = "不安定";
-                    }
-                    if (b.components[13].status == "operational") {
-                        brazilstats = "正常";
-                    } else {
-                        brazilstats = "不安定";
-                    }
-                    if (b.components[8].status == "operational") {
-                        voicestats = "正常";
-                    } else {
-                        voicestats = "不安定";
-                    }
-                    if (b.status.description == "All Systems Operational") {
-                        allstats = "全サーバーは正常です。";
-                    } else {
-                        allstats = "サーバーが不安定な可能性があります。";
-                    }
+                    const status = b.components.map(e => ({
+                      name: e.name,
+                      value: (e.status === 'operational') : '正常' : '不安定',
+                      inline: true,
+                    }))
+                    const allstats = (b.status.description == 'All Systems Operational')
+                      ? '全サーバーは正常です。'
+                      : 'サーバーが不安定な可能性があります。'
                     Request(options2, function (e, r, b) {
-                        lastmaintenances = b.incidents[0].created_at;
-                        if (b.incidents[0].status == "resolved") {
-                            lastmaintenancesresolved = "解決済み";
-                        } else {
-                            lastmaintenancesresolved = "未解決";
+                        const maintenance = {
+                          at: b.incidents[0].created_at,
+                          resolved: (b.incidents[0].status == "resolved") ? '解決済み' : '未解決',
                         }
                         console.timeEnd("サーバーの状態の取得にかかった時間");
                         m.channel.stopTyping();
-                        Embed = new DiscordJS.RichEmbed()
-                            .addField("サーバーの状態", allstats)
-                            .addField("API", apistats, true)
-                            .addField("Gateway", gatewaystats, true)
-                            .addField("CloudFlare", cloudflarestats, true)
-                            .addField("Media Proxy", mediaproxystats, true)
-                            .addField("Voice", voicestats, true)
-                            .addField("EU West", euweststats, true)
-                            .addField("EU Central", eucentralstats, true)
-                            .addField("Singapore", singaporestats, true)
-                            .addField("Japan", japanstats, true)
-                            .addField("Russia", russiastats, true)
-                            .addField("Hong Kong", russiastats, true)
-                            .addField("US Central", uscentralstats, true)
-                            .addField("US East", useaststats, true)
-                            .addField("US South", ussouthstats, true)
-                            .addField("US West", usweststats, true)
-                            .addField("Brazil", brazilstats, true)
-                            .addField("最後に行われたメンテナンス", lastmaintenances + "（" + lastmaintenancesresolved + "）")
-                            .setColor("#0x00FF00")
-                            .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
-                        m.channel.send(Embed);
-                        apistats = "";
-                        euweststats = "";
-                        gatewaystats = "";
-                        cloudflarestats = "";
-                        eucentralstats = "";
-                        mediaproxystats = "";
-                        voicestats = "";
-                        singaporestats = "";
-                        japanstats = "";
-                        russiastats = "";
-                        hongkongstats = "";
-                        uscentralstats = "";
-                        useaststats = "";
-                        ussouthstats = "";
-                        usweststats = "";
-                        brazilstats = "";
-                        allstats = "";
+                        m.channel.send({ embed: {
+                          color: 0x00FF00,
+                          footer: {
+                            icon_url: 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4',
+                            text: 'DEVELOPED BY DJS-JPN',
+                          },
+                          fields: [{
+                            name: 'サーバーの状態',
+                            value: allstats,
+                          }, ...status, {
+                            name: '最後に行われたメンテナンス',
+                            value: `${maintenance.at}（${maintenance.resolved}）`,
+                          }]
+                        }})
                     });
                 });
                 break;
