@@ -1,0 +1,32 @@
+{
+  "name": "blade",
+  "version": "1.0.0",
+  "description": "",
+  "main": "run.js",
+  "scripts": {
+    "test": "node run.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DJS-JPN/Blade.git"
+  },
+  "contributors": [
+    "InkoHX",
+    "NightCrystal169",
+    "NULL-Coding",
+    "yuta0801"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DJS-JPN/Blade/issues"
+  },
+  "homepage": "https://github.com/DJS-JPN/Blade#readme",
+  "private": true,
+  "dependencies": {
+    "discord.js": "^11.3.0",
+    "request": "^2.83.0"
+  },
+  "engines": {
+    "node": ">=7.0.0"
+  }
+}
