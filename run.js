@@ -175,7 +175,7 @@ Blade
         if (Config.WelcomeChannel != "disable") {
             if (m.user.bot == false) {
                 const Embed = new DiscordJS.RichEmbed()
-                    .addFields("新しいユーザーがサーバーに参加しました。", `参加したユーザー：${m.user.tag}`, true)
+                    .addField("新しいユーザーがサーバーに参加しました。", `参加したユーザー：${m.user.tag}`, true)
                     .addField(`${m.user.tag}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
                     .addField("バグ報告などはこちらへ", "https://discord.gg/DbTpjXV")
                     .addField("このユーザーはボットではありません。", `ID：${m.user.id}`)
