@@ -5,6 +5,7 @@ Blade.login(env.TOKEN);
 console.time("全コードの読み込みにかかった時間");
 console.time("ログインにかかった時間");
 const Request = require("request");
+const fetch = require('node-fetch')
 //Japanese = require("./language/ja_jp.json",
 //English = require("./language/en_us.json"),
 //Language = env.LANGUAGE,
@@ -43,7 +44,7 @@ Blade
         console.log("ログイン成功 | Login success\nこのボットはDJS-JPNによって開発されました | This bot is developed by DJS-JPN\nボットを停止するにはターミナルで Ctrl + C を押すようお願いします | Press Ctrl + C on terminal to stop the this bot");
     })
 
-    .on("message", m => {
+    .on("message", async m => {
         if (m.author.bot) return;
         if (!m.content.startsWith(Prefix)) return;
         Split = m.content.slice(Prefix.length).split(" ");
@@ -149,40 +150,42 @@ Blade
             case "discordstats":
                 m.channel.startTyping();
                 console.time("サーバーの状態の取得にかかった時間");
-                Request(options, function (e, r, b) {
-                    const status = b.components.map(e => ({
-                        name: e.name,
-                        value: (e.status === 'operational') ? '正常' : '不安定',
-                        inline: true,
-                    }))
-                    const allstats = (b.status.description == 'All Systems Operational')
-                        ? '全サーバーは正常です。'
-                        : 'サーバーが不安定な可能性があります。'
-                    Request(options2, function (e, r, b) {
-                        const maintenance = {
-                            at: b.incidents[0].created_at,
-                            resolved: (b.incidents[0].status == "resolved") ? '解決済み' : '未解決',
-                        }
-                        console.timeEnd("サーバーの状態の取得にかかった時間");
-                        m.channel.stopTyping();
-                        m.channel.send({
-                            embed: {
-                                color: 0x00FF00,
-                                footer: {
-                                    icon_url: 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4',
-                                    text: 'DEVELOPED BY DJS-JPN',
-                                },
-                                fields: [{
-                                    name: 'サーバーの状態',
-                                    value: allstats,
-                                }, ...status, {
-                                    name: '最後に行われたメンテナンス',
-                                    value: `${maintenance.at}（${maintenance.resolved}）`,
-                                }]
-                            }
-                        })
-                    });
-                });
+                const _summary = await fetch('https://status.discordapp.com/api/v2/summary.json')
+                const _incidents = await fetch('https://status.discordapp.com/api/v2/incidents.json')
+                const summary = await _summary.json()
+                const incidents = await _incidents.json()
+                const status = summary.components.map(e => ({
+                    name: e.name,
+                    value: (e.status === 'operational') ? '正常' : '不安定',
+                    inline: true,
+                }))
+                const allstats = (summary.status.description == 'All Systems Operational')
+                    ? '全サーバーは正常です。'
+                    : 'サーバーが不安定な可能性があります。'
+                const maintenance = {
+                    at: incidents.incidents[0].created_at,
+                    resolved: (incidents.incidents[0].status == "resolved")
+                      ? '解決済み'
+                      : '未解決',
+                }
+                console.timeEnd("サーバーの状態の取得にかかった時間");
+                m.channel.stopTyping();
+                m.channel.send({
+                    embed: {
+                        color: 0x00FF00,
+                        footer: {
+                            icon_url: 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4',
+                            text: 'DEVELOPED BY DJS-JPN',
+                        },
+                        fields: [{
+                            name: 'サーバーの状態',
+                            value: allstats,
+                        }, ...status, {
+                            name: '最後に行われたメンテナンス',
+                            value: `${maintenance.at}（${maintenance.resolved}）`,
+                        }]
+                    }
+                })
                 break;
             default:
                 sendEmbed(m, "不明なコマンドです。" + Prefix + "helpでコマンドに誤字、脱字、コマンドが存在するか確認をお願いいたします。")
