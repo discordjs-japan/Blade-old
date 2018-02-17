@@ -1,6 +1,9 @@
 > # Blade（刀）
 [![Discord](https://discordapp.com/api/guilds/391390986770710528/embed.png)](https://discord.gg/DbTpjXV)
 
+> ### Other language | 他の言語
+[English | 英語](https://github.com/DJS-JPN/Blade/blob/master/README-EN.md)
+
 > ### Bladeとは？
 
 Bladeは[DJS-JPN](https://djs-jpn.ga)が**オープンソース**で開発するDiscordのボットです。
