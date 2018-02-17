@@ -1,8 +1,5 @@
 const DiscordJS = require("discord.js");
 var Blade = new DiscordJS.Client();
-Blade.login(Config.token);
-console.time("全コードの読み込みにかかった時間");
-console.time("ログインにかかった時間");
 const File = require("fs"),
     FileExtra = require("fs-extra"),
     Request = require("request");
@@ -48,6 +45,9 @@ var Config = require("./config.json"),
     },
     optionstranslate = {
     };
+console.time("全コードの読み込みにかかった時間");
+Blade.login(Config.token);
+console.time("ログインにかかった時間");
 
 Blade
     .on("ready", () => {
