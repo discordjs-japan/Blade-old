@@ -1,11 +1,14 @@
 const DiscordJS = require("discord.js");
-var Blade = new DiscordJS.Client();
+var Blade = new DiscordJS.Client(),
+    Config = require("./config.json");
+Blade.login(Config.token);
+console.time("全コードの読み込みにかかった時間");
+console.time("ログインにかかった時間");
 const Request = require("request");
-var Config = require("./config.json"),
-    //Japanese = require("./language/ja_jp.json"),
-    //English = require("./language/en_us.json"),
-    //Language = Config.language,
-    Prefix = Config.prefix,
+//Japanese = require("./language/ja_jp.json",
+//English = require("./language/en_us.json"),
+//Language = Config.language,
+var Prefix = Config.prefix,
     TemporaryFileContents = "",
     apistats = "",
     euweststats = "",
@@ -18,6 +21,7 @@ var Config = require("./config.json"),
     japanstats = "",
     russiastats = "",
     hongkongstats = "",
+    sydneystats = "",
     uscentralstats = "",
     useaststats = "",
     ussouthstats = "",
@@ -43,9 +47,6 @@ var Config = require("./config.json"),
     },
     optionstranslate = {
     };
-console.time("全コードの読み込みにかかった時間");
-Blade.login(Config.token);
-console.time("ログインにかかった時間");
 
 Blade
     .on("ready", () => {
@@ -133,23 +134,10 @@ Blade
             case "translate":
             case "t":
                 if (!Split[1]) {
-                    sendEmbed(m, "翻訳したい内容を入力してください。");
+                    sendEmbed(m, "翻訳したい言語を入力してください。");
                 } else {
                     if (!Split[2]) {
-                        optionstranslate = {
-                            method: "POST",
-                            url: "https://translate.google.com/translate_a/single" + "?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8" + "&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e",
-                            headers: {
-                                'Content-Type': "application/json; charset=utf-8",
-                                'User-Agent': "AndroidTranslate",
-                            },
-                            form: {
-                                "sl": "auto",
-                                "tl": "ja_jp",
-                                "q": Split[1],
-                            },
-                            json: true,
-                        }
+                        sendEmbed(m, "翻訳したい内容を入力してください。")
                     } else {
                         optionstranslate = {
                             method: "POST",
@@ -160,17 +148,18 @@ Blade
                             },
                             form: {
                                 "sl": "auto",
-                                "tl": Split[2],
-                                "q": Split[1],
+                                "tl": Split[1],
+                                "q": m.content.slice(m.content.search(Split[2])),
                             },
                             json: true,
                         }
                     }
+                    console.log(m.content.slice(m.content.search(Split[2])));
                     Request(optionstranslate, function (e, r, b) {
                         if (e) {
-                            sendEmbed(m, "内部エラーが発生しました。翻訳する内容または翻訳先の言語が無効な可能性があります。")
+                            sendEmbed(m, "翻訳に失敗しました。翻訳する内容または翻訳先の言語が無効な可能性があります。")
                         } else {
-                            m.channel.send(m.author.tag + "：" + r);
+                            m.channel.send(m.author.tag + ":" + b.sentences[0].trans + "\nOriginal:" + m.content.slice(m.content.search(Split[2])));
                         }
                     });
                 }
@@ -194,40 +183,35 @@ Blade
                     } else {
                         gatewaystats = "不安定";
                     }
-                    if (b.components[4].status == "operational") {
-                        cloudflarestats = "正常";
-                    } else {
-                        cloudflarestats = "不安定";
-                    }
-                    if (b.components[6].status == "operational") {
-                        mediaproxystats = "正常";
-                    } else {
-                        mediaproxystats = "不安定";
-                    }
                     if (b.components[3].status == "operational") {
                         eucentralstats = "正常";
                     } else {
                         eucentralstats = "不安定";
+                    }
+                    if (b.components[4].status == "operational") {
+                        cloudflarestats = "正常";
+                    } else {
+                        cloudflarestats = "不安定";
                     }
                     if (b.components[5].status == "operational") {
                         singaporestats = "正常";
                     } else {
                         singaporestats = "不安定";
                     }
-                    if (b.components[16].status == "operational") {
-                        japanstats = "正常";
+                    if (b.components[6].status == "operational") {
+                        mediaproxystats = "正常";
                     } else {
-                        japanstats = "不安定";
+                        mediaproxystats = "不安定";
                     }
-                    if (b.components[15].status == "operational") {
-                        russiastats = "正常";
+                    if (b.components[7].status == "operational") {
+                        sydneystats = "正常";
                     } else {
-                        russiastats = "不安定";
+                        sydneystats = "不安定";
                     }
-                    if (b.components[14].status == "operational") {
-                        hongkongstats = "正常";
+                    if (b.components[8].status == "operational") {
+                        voicestats = "正常";
                     } else {
-                        hongkongstats = "不安定";
+                        voicestats = "不安定";
                     }
                     if (b.components[9].status == "operational") {
                         uscentralstats = "正常";
@@ -254,10 +238,20 @@ Blade
                     } else {
                         brazilstats = "不安定";
                     }
-                    if (b.components[8].status == "operational") {
-                        voicestats = "正常";
+                    if (b.components[14].status == "operational") {
+                        hongkongstats = "正常";
                     } else {
-                        voicestats = "不安定";
+                        hongkongstats = "不安定";
+                    }
+                    if (b.components[15].status == "operational") {
+                        russiastats = "正常";
+                    } else {
+                        russiastats = "不安定";
+                    }
+                    if (b.components[16].status == "operational") {
+                        japanstats = "正常";
+                    } else {
+                        japanstats = "不安定";
                     }
                     if (b.status.description == "All Systems Operational") {
                         allstats = "全サーバーは正常です。";
@@ -286,6 +280,7 @@ Blade
                             .addField("Japan", japanstats, true)
                             .addField("Russia", russiastats, true)
                             .addField("Hong Kong", russiastats, true)
+                            .addField("Sydney", sydneystats, true)
                             .addField("US Central", uscentralstats, true)
                             .addField("US East", useaststats, true)
                             .addField("US South", ussouthstats, true)
@@ -321,51 +316,55 @@ Blade
         }
     })
     .on('guildMemberAdd', m => {
-        if (m.user.bot == false) {
-            Embed = new DiscordJS.RichEmbed()
-                .addField("新しいユーザーがサーバーに参加しました。", "参加したユーザー：" + m.user.tag, true)
-                .addField(m.user.username + "さん。ようこそ！", Prefix + "helpでコマンド一覧を確認できます！", true)
-                .addField("バグ報告などはこちらへ", "https://discord.gg/DbTpjXV")
-                .addField("このユーザーはボットではありません。", "ID：" + m.user.id)
-                .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
-                .setThumbnail(m.user.avatarURL)
-                .setColor("#FFFFFF");
-            Blade.channels.get("name", Config.welcomechannel).send(Embed);
-        } else {
-            checkbotsafety(m);
-            Embed = new DiscordJS.RichEmbed()
-                .addField("新しいボットがサーバーに参加しました。", "参加したボット：" + m.user.tag, true)
-                .addField("このボットの信頼性", botsafemsg, true)
-                .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/DbTpjXV")
-                .addField("このユーザーはボットです。", "ID：" + m.user.id)
-                .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
-                .setThumbnail(m.user.avatarURL)
-                .setColor("#FFFFFF");
-            Blade.channels.get("name", Config.welcomechannel).send(Embed);
+        if (Config.welcomechannel != "Disable") {
+            if (m.user.bot == false) {
+                Embed = new DiscordJS.RichEmbed()
+                    .addField("新しいユーザーがサーバーに参加しました。", "参加したユーザー：" + m.user.tag, true)
+                    .addField(m.user.username + "さん。ようこそ！", Prefix + "helpでコマンド一覧を確認できます！", true)
+                    .addField("バグ報告などはこちらへ", "https://discord.gg/72y2xM")
+                    .addField("このユーザーはボットではありません。", "ID：" + m.user.id)
+                    .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
+                    .setThumbnail(m.user.avatarURL)
+                    .setColor("#FFFFFF");
+                Blade.channels.get("name", Config.welcomechannel).send(Embed);
+            } else {
+                checkbotsafety(m);
+                Embed = new DiscordJS.RichEmbed()
+                    .addField("新しいボットがサーバーに参加しました。", "参加したボット：" + m.user.tag, true)
+                    .addField("このボットの信頼性", botsafemsg, true)
+                    .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/72y2xM")
+                    .addField("このユーザーはボットです。", "ID：" + m.user.id)
+                    .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
+                    .setThumbnail(m.user.avatarURL)
+                    .setColor("#FFFFFF");
+                Blade.channels.get("name", Config.welcomechannel).send(Embed);
+            }
         }
     })
     .on('guildMemberRemove', m => {
-        if (m.user.bot == false) {
-            Embed = new DiscordJS.RichEmbed()
-                .addField("ユーザーがサーバーから退出しました。", "退出したユーザー：" + m.user.tag, true)
-                .addField(m.user.username + "さん。さようなら...", "またどこかでお会いしましょう！", true)
-                .addField("バグ報告などはこちらへ", "https://discord.gg/DbTpjXV")
-                .addField("このユーザーはボットではありません。", "ID：" + m.user.id)
-                .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
-                .setThumbnail(m.user.avatarURL)
-                .setColor("#0x00FF00")
-            Blade.channels.get("name", Config.welcomechannel).send(Embed);
-        } else {
-            checkbotsafety(m);
-            Embed = new DiscordJS.RichEmbed()
-                .addField("ボットがサーバーから退出しました。", "退出したボット：" + m.user.tag, true)
-                .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/DbTpjXV")
-                .addField("このボットの信頼性", botsafemsg, true)
-                .addField("このユーザーはボットです。", "ID：" + m.user.id)
-                .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
-                .setThumbnail(m.user.avatarURL)
-                .setColor("#0x00FF00")
-            Blade.channels.get("name", Config.welcomechannel).send(Embed);
+        if (Config.welcomechannel != "Disable") {
+            if (m.user.bot == false) {
+                Embed = new DiscordJS.RichEmbed()
+                    .addField("ユーザーがサーバーから退出しました。", "退出したユーザー：" + m.user.tag, true)
+                    .addField(m.user.username + "さん。さようなら...", "またどこかでお会いしましょう！", true)
+                    .addField("バグ報告などはこちらへ", "https://discord.gg/72y2xM")
+                    .addField("このユーザーはボットではありません。", "ID：" + m.user.id)
+                    .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
+                    .setThumbnail(m.user.avatarURL)
+                    .setColor("#0x00FF00")
+                Blade.channels.get("name", Config.welcomechannel).send(Embed);
+            } else {
+                checkbotsafety(m);
+                Embed = new DiscordJS.RichEmbed()
+                    .addField("ボットがサーバーから退出しました。", "退出したボット：" + m.user.tag, true)
+                    .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/72y2xM")
+                    .addField("このボットの信頼性", botsafemsg, true)
+                    .addField("このユーザーはボットです。", "ID：" + m.user.id)
+                    .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
+                    .setThumbnail(m.user.avatarURL)
+                    .setColor("#0x00FF00")
+                Blade.channels.get("name", Config.welcomechannel).send(Embed);
+            }
         }
     });
 function sendEmbed(context, message) {
