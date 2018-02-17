@@ -94,14 +94,15 @@ Blade
                 break;
             case "translate":
             case "t":
-                const [lang, source] = args
+                const [lang, ...source] = args
+                const text = source.join(' ')
                 if (!lang) {
                     sendEmbed(m, Language.transmsgtwo);
                 } else {
-                    if (source) {
+                    if (text) {
                         Request({
                             method: "POST",
-                            url: "https://translate.google.com/translate_a/single" + "?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8" + "&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e",
+                            url: "https://translate.google.com/translate_a/single?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e",
                             headers: {
                                 'Content-Type': "application/json; charset=utf-8",
                                 'User-Agent': "AndroidTranslate",
@@ -109,14 +110,15 @@ Blade
                             form: {
                                 "sl": "auto",
                                 "tl": lang,
-                                "q": m.content.slice(m.content.search(source)),
+                                "q": text,
                             },
                             json: true,
                         }, function (e, r, b) {
                             if (e) {
                                 sendEmbed(m, Language.transfailed)
                             } else {
-                                m.channel.send(m.author.tag + ":" + b.sentences[0].trans + "\n" + Language.transoriginal + m.content.slice(m.content.search(source)));
+                                m.channel.send(m.author.tag + ":" + b.sentences[0].trans + "\n" + Language.transoriginal + text);
+                                console.log(m.author.tag + ":" + b.sentences[0].trans + "\n" + Language.transoriginal + text)
                             }
                         });
                     } else {
