@@ -2,4 +2,5 @@
   "token": "tokenを入れて下さい",
   "prefix": "./",
   "lang": "ja_jp"
+  "welcomechannel": "ウェルカムメッセージを送信したいチャンネル名を入れてください"
 }
