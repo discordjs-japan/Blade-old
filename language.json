@@ -1,6 +1,7 @@
 {
     "ja_jp": {
-        "login-success": "ログイン成功",
+        "language": "日本語",
+        "loginsuccess": "ログイン成功",
         "botdeveloped": "このボットはDJS-JPNによって開発されました",
         "ctrlpluscstop": "ボットを停止するにはターミナルで Ctrl + C を押すようお願いします",
         "playinggame": "%1helpでhelpを表示",
@@ -31,7 +32,8 @@
         "brazil": "ブラジル"
     },
     "en_us": {
-        "login-success": "Login successful",
+        "language": "English",
+        "loginsuccess": "Login successful",
         "botdeveloped": "This bot is developed by DJS-JPN",
         "ctrlpluscstop": "Press Ctrl + C on terminal to stop the this bot",
         "playinggame": "Type %1help to show help",
