@@ -5,11 +5,9 @@ Blade.login(Config.Token);
 console.time("全コードの読み込みにかかった時間");
 console.time("ログインにかかった時間");
 const Request = require("request"),
-    fetch = require('node-fetch')
-//Japanese = require("./language/ja_jp.json",
-//English = require("./language/en_us.json"),
-//Language = env.LANGUAGE,
-const Prefix = env.Prefix
+    fetch = require('node-fetch'),
+    Prefix = Config.Prefix,
+    Language = require("./language.json")[Config.Language];
 
 Blade
     .on("ready", () => {
@@ -21,7 +19,7 @@ Blade
                 type: 1
             }
         });
-        console.log("ログイン成功 | Login success\nこのボットはDJS-JPNによって開発されました | This bot is developed by DJS-JPN\nボットを停止するにはターミナルで Ctrl + C を押すようお願いします | Press Ctrl + C on terminal to stop the this bot");
+        console.log(Language.loginsuccess + "\n" + Language.botdeveloped + "\n" + Language.ctrlpluscstop);
     })
 
     .on("message", async m => {
@@ -48,31 +46,31 @@ Blade
                     "fields": [
                         {
                             "name": "help",
-                            "value": "コマンド一覧を表示"
+                            "value": "" + Language.helphelp
                         },
                         {
                             "name": "ping",
-                            "value": "Pingを確認",
+                            "value": "" + Language.helpping,
                         },
                         {
                             "name": "avatar",
-                            "value": "自分のプロフィール画像を表示",
+                            "value": "" + Language.helpavatar,
                         },
                         {
                             "name": "translate | t",
-                            "value": "テキストを翻訳",
+                            "value": "" + Language.helptranslate,
                         },
                         {
                             "name": "discordstats",
-                            "value": "Discordのサーバー状態を確認",
+                            "value": "" + Language.helpdiscordstats,
                         },
                         {
-                            "name": "公式サイト",
+                            "name": "" + Language.helpofficial,
                             "value": "https://djs-jpn.ga",
                             "inline": true
                         },
                         {
-                            "name": "バグ報告・公式Discordサーバー",
+                            "name": "" + Language.helpbugreport,
                             "value": "https://discord.gg/DbTpjXV",
                             "inline": true
                         },
@@ -98,31 +96,32 @@ Blade
             case "t":
                 const [lang, source] = args
                 if (!lang) {
-                    sendEmbed(m, "翻訳したい言語を入力してください。");
+                    sendEmbed(m, Language.transmsgtwo);
                 } else {
-                    if (!source) {
-                        sendEmbed(m, "翻訳したい内容を入力してください。")
-                    console.log(m.content.slice(m.content.search(source)));
-                    Request({
-                        method: "POST",
-                        url: "https://translate.google.com/translate_a/single" + "?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8" + "&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e",
-                        headers: {
-                            'Content-Type': "application/json; charset=utf-8",
-                            'User-Agent': "AndroidTranslate",
-                        },
-                        form: {
-                            "sl": "auto",
-                            "tl": lang,
-                            "q": m.content.slice(m.content.search(source)),
-                        },
-                        json: true,
-                    }, function (e, r, b) {
-                        if (e) {
-                            sendEmbed(m, "翻訳に失敗しました。翻訳する内容または翻訳先の言語が無効な可能性があります。")
-                        } else {
-                            m.channel.send(m.author.tag + ":" + b.sentences[0].trans + "\nOriginal:" + m.content.slice(m.content.search(search)));
-                        }
-                    });
+                    if (source) {
+                        Request({
+                            method: "POST",
+                            url: "https://translate.google.com/translate_a/single" + "?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8" + "&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e",
+                            headers: {
+                                'Content-Type': "application/json; charset=utf-8",
+                                'User-Agent': "AndroidTranslate",
+                            },
+                            form: {
+                                "sl": "auto",
+                                "tl": lang,
+                                "q": m.content.slice(m.content.search(source)),
+                            },
+                            json: true,
+                        }, function (e, r, b) {
+                            if (e) {
+                                sendEmbed(m, Language.transfailed)
+                            } else {
+                                m.channel.send(m.author.tag + ":" + b.sentences[0].trans + "\n" + Language.transoriginal + m.content.slice(m.content.search(source)));
+                            }
+                        });
+                    } else {
+                        sendEmbed(m, Language.transmsg);
+                    }
                 }
                 break;
             case "discordstats":
@@ -134,7 +133,7 @@ Blade
                 const incidents = await _incidents.json()
                 const status = summary.components.map(e => ({
                     name: e.name,
-                    value: (e.status === 'operational') ? '正常' : '不安定',
+                    value: (e.status === 'operational') ? "" + Language.discordstatsnormal : "" + Language.discordstatsabnormal,
                     inline: true,
                 }))
                 const allstats = (summary.status.description == 'All Systems Operational')
@@ -143,8 +142,8 @@ Blade
                 const maintenance = {
                     at: incidents.incidents[0].created_at,
                     resolved: (incidents.incidents[0].status == "resolved")
-                        ? '解決済み'
-                        : '未解決',
+                        ? "" + Language.discordstatsresolved
+                        : "" + Language.discordstatsreunresolved,
                 }
                 console.timeEnd("サーバーの状態の取得にかかった時間");
                 m.channel.stopTyping();
@@ -213,7 +212,7 @@ Blade
                 const Embed = new DiscordJS.RichEmbed()
                     .addField("ボットがサーバーから退出しました。", "退出したボット：" + m.user.tag, true)
                     .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/DbTpjXV")
-                    .addField("このボットの信頼性", checkbotsafety(), true)
+                    .addField("このボットの信頼性", botsafemsg, true)
                     .addField("このユーザーはボットです。", "ID：" + m.user.id)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
@@ -222,7 +221,6 @@ Blade
             }
         }
     });
-
 function sendEmbed(context, message) {
     const Embed = new DiscordJS.RichEmbed()
         .setTitle(message)
@@ -230,7 +228,6 @@ function sendEmbed(context, message) {
         .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4");
     context.channel.send(Embed);
 }
-
 function checkbotsafety(member) {
     if ([
         '235088799074484224', // Rythm
