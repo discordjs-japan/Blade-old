@@ -7,9 +7,7 @@ var Blade = new DiscordJS.Client();
 var Config = require("./config.json")
 Blade.login(Config.token);
 console.time("ログインにかかった時間");
-var Prefix = "./",
-    Lang = "ja_jp",
-    TemporaryFileContents = "",
+var TemporaryFileContents = "",
     apistats = "",
     euweststats = "",
     gatewaystats = "",
@@ -27,7 +25,9 @@ var Prefix = "./",
     usweststats = "",
     brazilstats = "",
     allstats = "",
+    botsafemsg = "",
     Split,
+    Embed,
     options = {
         url: "https://srhpyqt94yxb.statuspage.io/api/v2/summary.json",
         headers: {
@@ -106,8 +106,8 @@ Blade
                             "inline": true
                         },
                         {
-                            "name": "バグ報告・公式Discord",
-                            "value": "https://goo.gl/TWb2tB",
+                            "name": "バグ報告・公式Discordサーバー",
+                            "value": "https://discord.gg/DbTpjXV",
                             "inline": true
                         },
                         {
@@ -316,32 +316,96 @@ Blade
                 sendEmbed(m, "不明なコマンドです。" + Prefix + "helpでコマンドに誤字、脱字、コマンドが存在するか確認をお願いいたします。")
                 break;
         }
+    })
+    .on('guildMemberAdd', m => {
+        if (m.user.bot == false) {
+            Embed = new DiscordJS.RichEmbed()
+                .addField("新しいユーザーがサーバーに参加しました。", "参加したユーザー：" + m.user.tag, true)
+                .addField(m.user.username + "さん。ようこそ！", Prefix + "helpでコマンド一覧を確認できます！", true)
+                .addField("バグ報告などはこちらへ", "https://discord.gg/72y2xM")
+                .addField("このユーザーはボットではありません。", "ID：" + m.user.id)
+                .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
+                .setThumbnail(m.user.avatarURL)
+                .setColor("#FFFFFF");
+            Blade.channels.get("name", Config.welcomechannel).send(Embed);
+        } else {
+            checkbotsafety(m);
+            Embed = new DiscordJS.RichEmbed()
+                .addField("新しいボットがサーバーに参加しました。", "参加したボット：" + m.user.tag, true)
+                .addField("このボットの信頼性", botsafemsg, true)
+                .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/72y2xM")
+                .addField("このユーザーはボットです。", "ID：" + m.user.id)
+                .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
+                .setThumbnail(m.user.avatarURL)
+                .setColor("#FFFFFF");
+            Blade.channels.get("name", Config.welcomechannel).send(Embed);
+        }
+    })
+    .on('guildMemberRemove', m => {
+        if (m.user.bot == false) {
+            Embed = new DiscordJS.RichEmbed()
+                .addField("ユーザーがサーバーから退出しました。", "退出したユーザー：" + m.user.tag, true)
+                .addField(m.user.username + "さん。さようなら...", "またどこかでお会いしましょう！", true)
+                .addField("バグ報告などはこちらへ", "https://discord.gg/72y2xM")
+                .addField("このユーザーはボットではありません。", "ID：" + m.user.id)
+                .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
+                .setThumbnail(m.user.avatarURL)
+                .setColor("#0x00FF00")
+            Blade.channels.get("name", Config.welcomechannel).send(Embed);
+        } else {
+            checkbotsafety(m);
+            Embed = new DiscordJS.RichEmbed()
+                .addField("ボットがサーバーから退出しました。", "退出したボット：" + m.user.tag, true)
+                .addField("このボットを使用して" + Blade.user.id + "に問題が発生した場合はこちらへ", "https://discord.gg/72y2xM")
+                .addField("このボットの信頼性", botsafemsg, true)
+                .addField("このユーザーはボットです。", "ID：" + m.user.id)
+                .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
+                .setThumbnail(m.user.avatarURL)
+                .setColor("#0x00FF00")
+            Blade.channels.get("name", Config.welcomechannel).send(Embed);
+        }
     });
-/*
-Blade.on('guildMemberAdd', member => {
-  let guild = member.guild;
-  const embed = new DiscordJS.RichEmbed()
-  .setColor(0x00FF00)
-  .addField('Join(参加)', `${member.user.tag}様`)
-  .setImage("https://djs-jpn.ga/assets/images/Join.png")
-  .setTimestamp()
-  Blade.channels.find('name', config.joinmsgchannel).send(embed);
-});
-Blade.on('guildMemberRemove', member => {
-  let guild = member.guild;
-  const embed = new DiscordJS.RichEmbed()
-  .setColor(0xFF0000)
-  .addField('Quit(退出)', `${member.user.tag}様`)
-  .setImage("https://djs-jpn.ga/assets/images/Quit.png")
-  .setTimestamp()
-  Blade.channels.find('name', config.quitmsgchannel).send(embed);
-});
-*/
 function sendEmbed(context, message) {
     Embed = new DiscordJS.RichEmbed()
         .setTitle(message)
         .setColor("#0x00FF00")
         .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4");
     context.channel.send(Embed);
+}
+function checkbotsafety(context) {
+    if (
+        m.user.id == "235088799074484224" || /*Rythm*/
+        m.user.id == "155149108183695360" || /*Dyno*/
+        m.user.id == "222853335877812224" || /*Server Hound*/
+        m.user.id == "294882584201003009" || /*Giveaway bot*/
+        m.user.id == "245675252821000193" || /*Gaius Cicereius*/
+        m.user.id == "367317166573355008" || /*うううさんのRPGⅡ*/
+        m.user.id == "346650373613682688" || /*ボットちゃん*/
+        m.user.id == "378929559862640650" || /*sou-trade*/
+        m.user.id == "404873188947001355" || /*C-Coin*/
+        m.user.id == "406292122963017749" || /*C-Casino*/
+        m.user.id == "394876010438328321" || /*Greeting Bot*/
+        m.user.id == "83010416610906112" || /*Night Bot*/
+        m.user.id == "153613756348366849" || /*Typical Bot*/
+        m.user.id == "265218275451863041" || /*GuideBot*/
+        m.user.id == "241694957490929664" || /*MDN Duh*/
+        m.user.id == "172002275412279296" || /*Tatsumaki*/
+        m.user.id == "376433393262526476" || /*DSL Bot*/
+        m.user.id == "324829950639341568" || /*Discordちゃんねる*/
+        m.user.id == "302050872383242240" || /*Disboard*/
+        m.user.id == "240545475118235648" /*BugBot*/
+    ) {
+        botsafemsg = "認証済み";
+    } else if (
+        m.user.id == "410775769980338177" || /*Coded Beta*/
+        m.user.id == "407775279642050560" || /*Coded*/
+        m.user.id == "411900942577827840" || /*Blade*/
+        m.user.id == "399018614382133248" || /*Red Music*/
+        m.user.id == "388258872395300865" /*Red Return*/
+    ) {
+        botsafemsg = "信頼";
+    } else {
+        botsafemsg = "不明";
+    }
 }
 console.timeEnd("全コードの読み込みにかかった時間");
