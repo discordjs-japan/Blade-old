@@ -1,15 +1,15 @@
 const DiscordJS = require("discord.js");
 var Blade = new DiscordJS.Client()
-const { parsed: env } = require('dotenv').load()
-Blade.login(env.TOKEN);
+const { parsed: Config } = require('dotenv').load()
+Blade.login(Config.Token);
 console.time("全コードの読み込みにかかった時間");
 console.time("ログインにかかった時間");
-const Request = require("request");
-const fetch = require('node-fetch')
+const Request = require("request"),
+    fetch = require('node-fetch')
 //Japanese = require("./language/ja_jp.json",
 //English = require("./language/en_us.json"),
-//Language = env.LANGUAGE,
-var Prefix = env.PREFIX,
+//Language = Config.Language,
+var Prefix = Config.Prefix,
     TemporaryFileContents = "",
     botsafemsg = "",
     Split,
@@ -165,8 +165,8 @@ Blade
                 const maintenance = {
                     at: incidents.incidents[0].created_at,
                     resolved: (incidents.incidents[0].status == "resolved")
-                      ? '解決済み'
-                      : '未解決',
+                        ? '解決済み'
+                        : '未解決',
                 }
                 console.timeEnd("サーバーの状態の取得にかかった時間");
                 m.channel.stopTyping();
@@ -193,7 +193,7 @@ Blade
         }
     })
     .on('guildMemberAdd', m => {
-        if (env.WELCOMECHANNEL != "Disable") {
+        if (Config.WelcomeChannel != "disable") {
             if (m.user.bot == false) {
                 Embed = new DiscordJS.RichEmbed()
                     .addField("新しいユーザーがサーバーに参加しました。", "参加したユーザー：" + m.user.tag, true)
@@ -203,7 +203,7 @@ Blade
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
                     .setColor("#FFFFFF");
-                Blade.channels.get("name", env.WELCOMECHANNEL).send(Embed);
+                Blade.channels.get("name", Config.WelcomeChannel).send(Embed);
             } else {
                 checkbotsafety(m);
                 Embed = new DiscordJS.RichEmbed()
@@ -214,12 +214,12 @@ Blade
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
                     .setColor("#FFFFFF");
-                Blade.channels.get("name", env.WELCOMECHANNEL).send(Embed);
+                Blade.channels.get("name", Config.WelcomeChannel).send(Embed);
             }
         }
     })
     .on('guildMemberRemove', m => {
-        if (env.WELCOMECHANNEL != "Disable") {
+        if (Config.WelcomeChannel != "disable") {
             if (m.user.bot == false) {
                 Embed = new DiscordJS.RichEmbed()
                     .addField("ユーザーがサーバーから退出しました。", "退出したユーザー：" + m.user.tag, true)
@@ -229,7 +229,7 @@ Blade
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
                     .setColor("#0x00FF00")
-                Blade.channels.get("name", env.WELCOMECHANNEL).send(Embed);
+                Blade.channels.get("name", Config.WelcomeChannel).send(Embed);
             } else {
                 checkbotsafety(m);
                 Embed = new DiscordJS.RichEmbed()
@@ -240,7 +240,7 @@ Blade
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
                     .setColor("#0x00FF00")
-                Blade.channels.get("name", env.WELCOMECHANNEL).send(Embed);
+                Blade.channels.get("name", Config.WelcomeChannel).send(Embed);
             }
         }
     });
