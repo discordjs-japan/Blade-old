@@ -5,6 +5,7 @@ const DiscordJS = require("discord.js"),
     Request = require("request");
 var Blade = new DiscordJS.Client();
 var Config = require("./config.json")
+var Prefix = Config.prefix;
 Blade.login(Config.token);
 console.time("ログインにかかった時間");
 var TemporaryFileContents = "",
