@@ -152,7 +152,7 @@ Blade
                 Request(options, function (e, r, b) {
                     const status = b.components.map(e => ({
                       name: e.name,
-                      value: (e.status === 'operational') : '正常' : '不安定',
+                      value: (e.status === 'operational') ? '正常' : '不安定',
                       inline: true,
                     }))
                     const allstats = (b.status.description == 'All Systems Operational')
