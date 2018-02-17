@@ -1,14 +1,17 @@
+const DiscordJS = require("discord.js");
+var Blade = new DiscordJS.Client();
+Blade.login(Config.token);
 console.time("全コードの読み込みにかかった時間");
-const DiscordJS = require("discord.js"),
-    File = require("fs"),
+console.time("ログインにかかった時間");
+const File = require("fs"),
     FileExtra = require("fs-extra"),
     Request = require("request");
-var Blade = new DiscordJS.Client();
-var Config = require("./config.json")
-var Prefix = Config.prefix;
-Blade.login(Config.token);
-console.time("ログインにかかった時間");
-var TemporaryFileContents = "",
+var Config = require("./config.json"),
+    //Japanese = require("./language/ja_jp.json"),
+    //English = require("./language/en_us.json"),
+    //Language = Config.language,
+    Prefix = Config.prefix,
+    TemporaryFileContents = "",
     apistats = "",
     euweststats = "",
     gatewaystats = "",
@@ -56,7 +59,7 @@ Blade
                 type: 1
             }
         });
-        console.log("ログイン成功 | Login success\nこのボットはDJS-JPNによって開発されました | This bot is developed by DJS-JPN\nボットを停止するにはターミナルで Ctrl + C を押すようお願いします。 | Press Ctrl + C on terminal to stop the this bot");
+        console.log("ログイン成功 | Login success\nこのボットはDJS-JPNによって開発されました | This bot is developed by DJS-JPN\nボットを停止するにはターミナルで Ctrl + C を押すようお願いします | Press Ctrl + C on terminal to stop the this bot");
     })
 
     .on("message", m => {
@@ -94,7 +97,7 @@ Blade
                             "value": "自分のプロフィール画像を表示",
                         },
                         {
-                            "name": "translate",
+                            "name": "translate | t",
                             "value": "テキストを翻訳",
                         },
                         {
@@ -103,7 +106,7 @@ Blade
                         },
                         {
                             "name": "公式サイト",
-                            "value": "https://goo.gl/BZgMCe",
+                            "value": "https://djs-jpn.ga",
                             "inline": true
                         },
                         {
@@ -130,6 +133,7 @@ Blade
                 //サーバーステータス
                 break;
             case "translate":
+            case "t":
                 if (!Split[1]) {
                     sendEmbed(m, "翻訳したい内容を入力してください。");
                 } else {
@@ -168,7 +172,7 @@ Blade
                         if (e) {
                             sendEmbed(m, "内部エラーが発生しました。翻訳する内容または翻訳先の言語が無効な可能性があります。")
                         } else {
-                            sendEmbed(m, "翻訳結果：" + b.sentences[0].trans)
+                            m.channel.send(m.author.tag + "：" + r);
                         }
                     });
                 }
