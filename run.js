@@ -189,10 +189,9 @@ Blade
                     .setColor("#FFFFFF");
                 Blade.channels.get("name", Config.WelcomeChannel).send(Embed);
             } else {
-                checkbotsafety(m);
                 const Embed = new DiscordJS.RichEmbed()
                     .addField("新しいボットがサーバーに参加しました。", `参加したボット：${m.user.tag}`, true)
-                    .addField("このボットの信頼性", checkbotsafety(), true)
+                    .addField("このボットの信頼性", checkbotsafety(m), true)
                     .addField(`このボットを使用して${Blade.user.tag}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
                     .addField("このユーザーはボットです。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
@@ -215,11 +214,10 @@ Blade
                     .setColor("#0x00FF00")
                 Blade.channels.get("name", Config.WelcomeChannel).send(Embed);
             } else {
-                checkbotsafety(m);
                 const Embed = new DiscordJS.RichEmbed()
                     .addField("ボットがサーバーから退出しました。", `退出したボット：${m.user.tag}`, true)
                     .addField(`このボットを使用して${Blade.user.tag}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
-                    .addField("このボットの信頼性", checkbotsafety(), true)
+                    .addField("このボットの信頼性", checkbotsafety(m), true)
                     .addField("このユーザーはボットです。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
