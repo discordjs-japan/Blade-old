@@ -16,15 +16,16 @@ Blade
         Blade.user.setPresence({
             game: {
                 name: `djs-jpn.ga | Type ${Prefix}help to show help`,
-                type: 1
+                type: 1,
             }
         });
-        if(Config.RestartDelay != "disable")
         console.log(`${Language.loginsuccess}\n${Language.botdeveloped}\n${Language.ctrlpluscstop}`);
-        setInterval(function () {
-            console.log("==============再起動を開始します==============")
+        if (!isNaN(Config.RestartDelay) && process.argv[2] !== 'false') {
+          setInterval(() => {
+            console.log('==============再起動を開始します==============')
             process.exit(0);
-        }, Config.RestartDelay);
+          }, Number(Config.RestartDelay));
+        }
     })
 
     .on("message", async m => {
