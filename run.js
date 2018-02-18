@@ -24,7 +24,7 @@ Blade
           setInterval(() => {
             console.log('==============再起動を開始します==============')
             process.exit(0);
-          }, Number(Config.RestartDelay));
+          }, Number(Config.RestartDelay - 5));
         }
     })
 
