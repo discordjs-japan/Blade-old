@@ -1,4 +1,5 @@
 > # Blade（刀）
+
 [![Discord](https://discordapp.com/api/guilds/391390986770710528/embed.png)](https://discord.gg/DbTpjXV)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -10,26 +11,41 @@ Blade is develop by [DJS-JPN](https://djs-jpn.ga) in **open source** discord bot
 
 Please install Node.js 8.0.0 or later on use (Please be aware that an error will occurred if not 8.0.0 or later)
 
-Blade's license is setted **MIT License**. 
+Blade's license is setted **MIT License**.
 
-About MIT License  
-[Wikipedia](https://en.wikipedia.org/wiki/MIT_License)
+About MIT License
+
+Permissions
+*   Commercial use
+*   Modification
+*   Distribution
+*   Private use
+
+Limitations
+*   Liability
+*   Warranty
+
+Conditions
+*   License and copyright notice
+
+[More detailed](https://en.wikipedia.org/wiki/MIT_License)
 
 > ### If you find a bug or error
 
 If you find a bug or error, please report to channel of discord `#report` or issues on GitHub
 
 > ### If you something do not understand
+
 If you something do not understand, Please check [help](https://djs-jpn.ga/help) of [DJS-JPN Official site](https://djs-jpn.ga)
 
 > ### Related Links
 
-[DJS-JPN](https://djs-jpn.ga)  
-[DJS-JPN | Help](https://djs-jpn.ga/help)  
-[DJS-JPN (Discord)](https://discord.gg/DbTpjXV)  
+[DJS-JPN](https://djs-jpn.ga)<br>
+[DJS-JPN | Help](https://djs-jpn.ga/help)<br>
+[DJS-JPN (Discord)](https://discord.gg/DbTpjXV)<br>
 [DJS-JPN (Google+)](https://plus.google.com/communities/102065506910522266374)
 
-## MIT License
+# MIT License
 
 ```
 Copyright (c) 2018 DJS-JPN

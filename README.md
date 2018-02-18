@@ -1,8 +1,10 @@
 > # Blade（刀）
+
 [![Discord](https://discordapp.com/api/guilds/391390986770710528/embed.png)](https://discord.gg/DbTpjXV)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 > ### Other language | 他の言語
+
 [English | 英語](https://github.com/DJS-JPN/Blade/blob/master/README-EN.md)
 
 > ### Bladeとは？
@@ -13,18 +15,22 @@ Bladeは[DJS-JPN](https://djs-jpn.ga)が**オープンソース**で開発する
 
 使用する際はNode.jsの8.0.0以降をインストールお願いします（8.0.0以降でないとエラーが出ますのでお気を付けください）
 
-BladeのライセンスはMIT Licenseに設定されています。  
+Bladeのライセンスは**MIT License**に設定されています。  
 
 MIT Licenseについて  
 
-**著作権の表示を保持する事  
-作成者や著作権者は製品に対しての義務や責任を何ら負わないこと**
+**作権の表示を保持する事**  
+
+**作成者や著作権者は製品に対しての義務や責任を何ら負わないこと**
+
+[もっと詳しく](https://ja.wikipedia.org/wiki/MIT_License)
 
 > ### 不具合が見つかった場合
 
 不具合などが見つかった場合はDiscordの`#report`またはこのレポジトリのIssuesに報告するようお願いいたします。
 
 > ### わからないことがあった場合
+
 その他わからないことがありましたら[DJS-JPN公式サイト](https://djs-jpn.ga)の[ヘルプ](https://djs-jpn.ga/help)の確認をお願いします
 
 > ### 関連リンク
