@@ -226,6 +226,7 @@ Blade
             }
         }
     });
+
 function sendEmbed(context, message) {
     const Embed = new DiscordJS.RichEmbed()
         .setTitle(message)
@@ -233,6 +234,7 @@ function sendEmbed(context, message) {
         .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4");
     context.channel.send(Embed);
 }
+
 function checkbotsafety(member) {
     if ([
         '235088799074484224', // Rythm
@@ -265,5 +267,8 @@ function checkbotsafety(member) {
     ]) return '信頼'
     else return '不明'
 }
+
+process.on('uncaughtException', error => console.log(error))
+process.on('unhandledRejection', error => console.log(error))
 
 console.timeEnd("全コードの読み込みにかかった時間");
