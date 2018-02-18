@@ -5,13 +5,13 @@ call check.bat
 
 :run
 
-echo ==============ボットを起動します==============
+echo ==============�{�b�g���N�����܂�==============
 
 node run.js
 
-echo ボットの再起動を開始します。
-echo 何も選択がなかった場合は５秒後に自動で再起動されます
-choice /t 5 /d y /m "再起動してよろしいですか？"
+echo �{�b�g�̍ċN�����J�n���܂��B
+echo �����I�����Ȃ������ꍇ�͂T�b��Ɏ����ōċN������܂�
+choice /t 5 /d y /m "�ċN�����Ă�낵���ł����H"
 
 if /i "%errorlevel%"=="1" goto run
 
