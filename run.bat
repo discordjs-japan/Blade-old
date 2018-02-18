@@ -5,8 +5,8 @@ node -v >nul 2>&1
 
 if %errorlevel% == 0 goto exists
 
-echo Node.js‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB
-echo ˆÈ‰º‚©‚çNode.js‚ðƒ_ƒEƒ“ƒ[ƒh‚µAƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
+echo Node.jsãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚
+echo ä»¥ä¸‹ã‹ã‚‰Node.jsã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã€ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
 echo https://nodejs.org/ja/
 echo.
 pause
@@ -21,11 +21,11 @@ set "VER=%VER:v=%"
 
 if %VER% geq 800 goto run
 
-echo ‚±‚Ìƒ{ƒbƒg‚Ì„§ƒo[ƒWƒ‡ƒ“‚Ív8.0.0ˆÈ~‚Å‚·‚ªA
-echo ƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚énode‚Ìƒo[ƒWƒ‡ƒ“‚Í%NODE%‚Å‚·
-echo ‘±s‚·‚é‚Æ•s‹ï‡‚ª”­¶‚·‚é‰Â”\«‚ª‚ ‚è‚Ü‚·B
+echo ã“ã®ãƒœãƒƒãƒˆã®æŽ¨å¥¨ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯v8.0.0ä»¥é™ã§ã™ãŒã€
+echo ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹nodeã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯%NODE%ã§ã™
+echo ç¶šè¡Œã™ã‚‹ã¨ä¸å…·åˆãŒç™ºç”Ÿã™ã‚‹å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚
 
-choice /m "‘±s‚µ‚Ü‚·‚©"
+choice /m "ç¶šè¡Œã—ã¾ã™ã‹"
 
 if /i "%USER_UPDATE%"=="y" (goto run)
 
@@ -33,6 +33,10 @@ exit
 
 :run
 
-node ./run.js
+node run.js
+
+call loop.bat
+
+exit
 
 pause
