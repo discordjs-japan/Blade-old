@@ -192,7 +192,7 @@ Blade
                 const Embed = new DiscordJS.RichEmbed()
                     .addField("新しいボットがサーバーに参加しました。", `参加したボット：${m.user.tag}`, true)
                     .addField("このボットの信頼性", checkbotsafety(), true)
-                    .addField(`このボットを使用して${Blade.user.username}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
+                    .addField(`このボットを使用して${Blade.user.tag}に問題が発生した場合はこちらへ`, "https://discord.gg/DbTpjXV")
                     .addField("このユーザーはボットです。", `ID：${m.user.id}`)
                     .setFooter("DEVELOPED BY DJS-JPN", "https://avatars3.githubusercontent.com/u/35397294?s=200&v=4")
                     .setThumbnail(m.user.avatarURL)
