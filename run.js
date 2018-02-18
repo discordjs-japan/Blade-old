@@ -1,25 +1,30 @@
 const DiscordJS = require("discord.js");
-var Blade = new DiscordJS.Client()
-const { parsed: Config } = require('dotenv').load()
+var Blade = new DiscordJS.Client();
+const { parsed: Config } = require('dotenv').load();
 Blade.login(Config.Token);
 console.time("全コードの読み込みにかかった時間");
 console.time("ログインにかかった時間");
-const Request = require("request")
-const fetch = require('node-fetch')
-const Prefix = Config.Prefix
+const Request = require("request");
+const fetch = require('node-fetch');
+const Prefix = Config.Prefix;
 const Language = require('./language.js')[Config.Language];
 
 Blade
     .on("ready", () => {
         console.timeEnd("ログインにかかった時間");
-        Blade.user.setStatus("available")
+        Blade.user.setStatus("available");
         Blade.user.setPresence({
             game: {
                 name: `djs-jpn.ga | Type ${Prefix}help to show help`,
                 type: 1
             }
         });
+        if(Config.RestartDelay != "disable")
         console.log(`${Language.loginsuccess}\n${Language.botdeveloped}\n${Language.ctrlpluscstop}`);
+        setInterval(function () {
+            console.log("==============再起動を開始します==============")
+            process.exit(0);
+        }, Config.RestartDelay);
     })
 
     .on("message", async m => {
@@ -94,8 +99,8 @@ Blade
                 break;
             case "translate":
             case "t":
-                const [lang, ...source] = args
-                const text = source.join(' ')
+                const [lang, ...source] = args;
+                const text = source.join(' ');
                 if (!lang) {
                     sendEmbed(m, Language.transmsgtwo);
                 } else {
@@ -115,10 +120,9 @@ Blade
                             json: true,
                         }, function (e, r, b) {
                             if (e) {
-                                sendEmbed(m, Language.transfailed)
+                                sendEmbed(m, Language.transfailed);
                             } else {
-                                m.channel.send(`${m.author.tag}:${b.sentences[0].trans}\n${Language.transoriginal}${text}`)
-                                console.log(`${m.author.tag}:${b.sentences[0].trans}\n${Language.transoriginal}${text}`)
+                                m.channel.send(`${m.author.tag}:${b.sentences[0].trans}\n${Language.transoriginal}${text}`);
                             }
                         });
                     } else {
@@ -129,15 +133,15 @@ Blade
             case "discordstats":
                 m.channel.startTyping();
                 console.time("サーバーの状態の取得にかかった時間");
-                const _summary = await fetch('https://status.discordapp.com/api/v2/summary.json')
-                const _incidents = await fetch('https://status.discordapp.com/api/v2/incidents.json')
-                const summary = await _summary.json()
-                const incidents = await _incidents.json()
+                const _summary = await fetch('https://status.discordapp.com/api/v2/summary.json');
+                const _incidents = await fetch('https://status.discordapp.com/api/v2/incidents.json');
+                const summary = await _summary.json();
+                const incidents = await _incidents.json();
                 const status = summary.components.map(e => ({
                     name: e.name,
                     value: (e.status === 'operational') ? Language.discordstatsnormal : Language.discordstatsabnormal,
                     inline: true,
-                }))
+                }));
                 const allstats = (summary.status.description == 'All Systems Operational')
                     ? '全サーバーは正常です。'
                     : 'サーバーが不安定な可能性があります。'
