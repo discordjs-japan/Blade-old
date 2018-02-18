@@ -1,5 +1,6 @@
 > # Blade（刀）
 [![Discord](https://discordapp.com/api/guilds/391390986770710528/embed.png)](https://discord.gg/DbTpjXV)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 > ### What is Blade?
 
