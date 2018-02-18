@@ -26,7 +26,7 @@ echo 続行すると不具合が発生する可能性があります。
 
 choice /m "続行しますか"
 
-if /i "%errorlevel%"=="y" (goto run)
+if "%errorlevel%"=="1" (goto run)
 
 exit
 
