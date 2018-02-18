@@ -1,9 +1,6 @@
 const Messages = {
     ja_jp: {
         language: "日本語",
-        loginsuccess: "ログイン成功",
-        botdeveloped: "このボットはDJS-JPNによって開発されました",
-        ctrlpluscstop: "ボットを停止するにはターミナルで Ctrl + C を押すようお願いします",
         playinggame: prefix => `${prefix}helpでhelpを表示`,
         helphelp: "コマンド一覧を表示",
         helpping: "ボットのPingを確認",
@@ -35,9 +32,6 @@ const Messages = {
     },
     en_us: {
         language: "English",
-        loginsuccess: "Login successful",
-        botdeveloped: "This bot is developed by DJS-JPN",
-        ctrlpluscstop: "Press Ctrl + C on terminal to stop the this bot",
         playinggame: prefix => `Type ${prefix}help to show help`,
         helphelp: "Show commands list",
         helpping: "Check bot's ping",

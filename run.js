@@ -1,9 +1,6 @@
 const DiscordJS = require("discord.js");
-var Blade = new DiscordJS.Client();
+const Blade = new DiscordJS.Client();
 const { parsed: Config } = require('dotenv').load();
-Blade.login(Config.Token);
-console.time("全コードの読み込みにかかった時間");
-console.time("ログインにかかった時間");
 const Request = require("request");
 const fetch = require('node-fetch');
 const Prefix = Config.Prefix;
@@ -11,7 +8,7 @@ const Language = require('./language.js')[Config.Language];
 
 Blade
     .on("ready", () => {
-        console.timeEnd("ログインにかかった時間");
+        console.log(`Logged in as ${client.user.tag} developed by DJS-JPN!`)
         Blade.user.setStatus("available");
         Blade.user.setPresence({
             game: {
@@ -19,7 +16,6 @@ Blade
                 type: 1,
             }
         });
-        console.log(`${Language.loginsuccess}\n${Language.botdeveloped}\n${Language.ctrlpluscstop}`);
         if (!isNaN(Config.RestartDelay) && process.argv[2] !== 'false') {
           setInterval(() => {
             console.log('==============再起動を開始します==============')
@@ -133,7 +129,6 @@ Blade
                 break;
             case "discordstats":
                 m.channel.startTyping();
-                console.time("サーバーの状態の取得にかかった時間");
                 const _summary = await fetch('https://status.discordapp.com/api/v2/summary.json');
                 const _incidents = await fetch('https://status.discordapp.com/api/v2/incidents.json');
                 const summary = await _summary.json();
@@ -152,7 +147,6 @@ Blade
                         ? Language.discordstatsresolved
                         : Language.discordstatsreunresolved,
                 }
-                console.timeEnd("サーバーの状態の取得にかかった時間");
                 m.channel.stopTyping();
                 m.channel.send({
                     embed: {
@@ -268,7 +262,7 @@ function checkbotsafety(member) {
     else return '不明'
 }
 
+Blade.login(Config.Token);
+
 process.on('uncaughtException', error => console.log(error))
 process.on('unhandledRejection', error => console.log(error))
-
-console.timeEnd("全コードの読み込みにかかった時間");
