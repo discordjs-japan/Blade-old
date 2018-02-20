@@ -91,9 +91,6 @@ client
       case 'avatar':
         m.reply(m.author.avatarURL)
         break
-      case 'serverstats':
-        // サーバーステータス
-        break
       case 'translate':
       case 't':
         const [lang, ...source] = args
