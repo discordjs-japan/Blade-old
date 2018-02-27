@@ -162,6 +162,18 @@ client
           },
         })
         break
+      case 'talk':
+        m.channel.startTyping()
+        const res = await fetch('https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=' + Config.DocomoAPIKEY, {
+          method: 'POST',
+          body: JSON.stringify({
+            context: m.content,
+          }),
+        })
+        const json = await res.json()
+        m.channel.stopTyping()
+        m.reply(json.utt)
+        break
       default:
         sendEmbed(m, `不明なコマンドです。${Prefix}helpでコマンドに誤字、脱字、コマンドが存在するか確認をお願いいたします。`)
         break
