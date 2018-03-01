@@ -67,6 +67,10 @@ client
               'value': Language.helpdiscordstats,
             },
             {
+              'name': 'talk',
+              'value': Language.helptalk,
+            },
+            {
               'name': Language.helpofficial,
               'value': 'https://djs-jpn.ga',
               'inline': true,
