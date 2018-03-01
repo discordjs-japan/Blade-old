@@ -3,21 +3,21 @@ title Setup - BladeBOT
 
 if not exist .env goto setup
 
-echo æ—¢ã« .env ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã—ã¾ã™
-choice /m "ä¸Šæ›¸ãã—ã¾ã™ã‹ï¼Ÿ"
+echo Šù‚É .env ƒtƒ@ƒCƒ‹‚ª‘¶Ý‚µ‚Ü‚·
+choice /m "ã‘‚«‚µ‚Ü‚·‚©H"
 
 if "%errorlevel%"=="2" exit
 
 :setup
 
-echo ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—
-set /p Token="Tokenã‚’å…¥åŠ›ã—ã¦ãã ã•ã„: "
+echo ƒZƒbƒgƒAƒbƒv
+set /p Token="Token‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢: "
 echo Token=%Token%>.env
-set /p Prefix="Prefixã‚’å…¥åŠ›ã—ã¦ãã ã•ã„: "
+set /p Prefix="Prefix‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢: "
 echo Prefix=%Prefix%>>.env
-set /p Language="Languageã‚’å…¥åŠ›ã—ã¦ãã ã•ã„: "
+set /p Language="Language‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢: "
 echo Language=%Language%>>.env
-set /p WelcomeChannel="WelcomeChannelã‚’å…¥åŠ›ã—ã¦ãã ã•ã„: "
+set /p WelcomeChannel="WelcomeChannel‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢: "
 echo WelcomeChannel=%WelcomeChannel%>>.env
-set /p DocomoAPIKEY="DocomoAPIKEYã‚’å…¥åŠ›ã—ã¦ãã ã•ã„: "
+set /p DocomoAPIKEY="DocomoAPIKEY‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢: "
 echo DocomoAPIKEY=%DocomoAPIKEY%>>.env
