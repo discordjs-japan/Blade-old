@@ -9,7 +9,7 @@ const Language = require('./language.js')[Config.Language]
 client
   .on('ready', () => {
     console.log(`Logged in as ${client.user.tag} developed by DJS-JPN!`)
-    client.user.setStatus('available')
+    client.user.setStatus('dnd')
     client.user.setPresence({
       game: {
         name: `djs-jpn.ga | Type ${Prefix}help to show help`,
