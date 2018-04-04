@@ -195,7 +195,7 @@ client
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
           .setThumbnail(m.user.avatarURL)
           .setColor('#FFFFFF')
-        client.channels.find('name', Config.WelcomeChannel).send(Embed)
+        client.channels.get(Config.WelcomeChannel).send(Embed)
       } else {
         const Embed = new DiscordJS.RichEmbed()
           .addField('新しいボットがサーバーに参加しました。', `参加したボット：${m.user.tag}`, true)
@@ -205,7 +205,7 @@ client
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
           .setThumbnail(m.user.avatarURL)
           .setColor('#FFFFFF')
-        client.channels.find('name', Config.WelcomeChannel).send(Embed)
+        client.channels.get(Config.WelcomeChannel).send(Embed)
       }
     }
   })
@@ -220,7 +220,7 @@ client
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
           .setThumbnail(m.user.avatarURL)
           .setColor('#0x00FF00')
-        client.channels.get('name', Config.WelcomeChannel).send(Embed)
+        client.channels.get(Config.WelcomeChannel).send(Embed)
       } else {
         const Embed = new DiscordJS.RichEmbed()
           .addField('ボットがサーバーから退出しました。', `退出したボット：${m.user.tag}`, true)
@@ -230,7 +230,7 @@ client
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
           .setThumbnail(m.user.avatarURL)
           .setColor('#0x00FF00')
-        client.channels.get('name', Config.WelcomeChannel).send(Embed)
+        client.channels.get(Config.WelcomeChannel).send(Embed)
       }
     }
   })
