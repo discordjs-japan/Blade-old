@@ -191,7 +191,7 @@ client
         .addField('新しいユーザーがサーバーに参加しました。', `参加したユーザー：${member.user.tag}`, true)
         .addField(`${member.user.tag}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
         .addField('バグ報告などはこちらへ', 'https://discord.gg/DbTpjXV')
-        .addField('このユーザーはボットではありません。', `ID：${member.user.id}`)
+        .addField('このユーザーはボットではありません。', `ID：${member.id}`)
         .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
         .setThumbnail(member.user.avatarURL)
         .setColor('#FFFFFF')
@@ -201,7 +201,7 @@ client
         .addField('新しいボットがサーバーに参加しました。', `参加したボット：${member.user.tag}`, true)
         .addField('このボットの信頼性', checkbotsafety(member), true)
         .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
-        .addField('このユーザーはボットです。', `ID：${member.user.id}`)
+        .addField('このユーザーはボットです。', `ID：${member.id}`)
         .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
         .setThumbnail(member.user.avatarURL)
         .setColor('#FFFFFF')
@@ -225,7 +225,7 @@ client
         .addField('ボットがサーバーから退出しました。', `退出したボット：${member.user.tag}`, true)
         .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
         .addField('このボットの信頼性', checkbotsafety(member), true)
-        .addField('このユーザーはボットです。', `ID：${member.user.id}`)
+        .addField('このユーザーはボットです。', `ID：${member.id}`)
         .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
         .setThumbnail(member.user.avatarURL)
         .setColor('#0x00FF00')
@@ -263,14 +263,14 @@ function checkbotsafety (member) {
     '324829950639341568', // Discordちゃんねる
     '302050872383242240', // Disboard
     '240545475118235648', // BugBot
-  ].includes(member.user.id)) return '認証済み'
+  ].includes(member.id)) return '認証済み'
   else if ([
     '410775769980338177', // Coded Beta
     '407775279642050560', // Coded
     '411900942577827840', // Blade
     '399018614382133248', // Red Music
     '388258872395300865', // Red Return
-  ].includes(member.user.id)) return '信頼'
+  ].includes(member.id)) return '信頼'
   else return '不明'
 }
 
