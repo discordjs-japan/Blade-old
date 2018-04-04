@@ -185,53 +185,51 @@ client
     }
   })
   .on('guildMemberAdd', member => {
-    if (Config.WelcomeChannel !== 'disable') {
-      if (member.user.bot === false) {
-        const Embed = new DiscordJS.RichEmbed()
-          .addField('新しいユーザーがサーバーに参加しました。', `参加したユーザー：${member.user.tag}`, true)
-          .addField(`${member.user.tag}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
-          .addField('バグ報告などはこちらへ', 'https://discord.gg/DbTpjXV')
-          .addField('このユーザーはボットではありません。', `ID：${member.user.id}`)
-          .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
-          .setThumbnail(member.user.avatarURL)
-          .setColor('#FFFFFF')
-        client.channels.get(Config.WelcomeChannel).send(Embed)
-      } else {
-        const Embed = new DiscordJS.RichEmbed()
-          .addField('新しいボットがサーバーに参加しました。', `参加したボット：${member.user.tag}`, true)
-          .addField('このボットの信頼性', checkbotsafety(member), true)
-          .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
-          .addField('このユーザーはボットです。', `ID：${member.user.id}`)
-          .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
-          .setThumbnail(member.user.avatarURL)
-          .setColor('#FFFFFF')
-        client.channels.get(Config.WelcomeChannel).send(Embed)
-      }
+    if (Config.WelcomeChannel !== 'disable') return
+    if (member.user.bot === false) {
+      const Embed = new DiscordJS.RichEmbed()
+        .addField('新しいユーザーがサーバーに参加しました。', `参加したユーザー：${member.user.tag}`, true)
+        .addField(`${member.user.tag}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
+        .addField('バグ報告などはこちらへ', 'https://discord.gg/DbTpjXV')
+        .addField('このユーザーはボットではありません。', `ID：${member.user.id}`)
+        .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
+        .setThumbnail(member.user.avatarURL)
+        .setColor('#FFFFFF')
+      client.channels.get(Config.WelcomeChannel).send(Embed)
+    } else {
+      const Embed = new DiscordJS.RichEmbed()
+        .addField('新しいボットがサーバーに参加しました。', `参加したボット：${member.user.tag}`, true)
+        .addField('このボットの信頼性', checkbotsafety(member), true)
+        .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
+        .addField('このユーザーはボットです。', `ID：${member.user.id}`)
+        .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
+        .setThumbnail(member.user.avatarURL)
+        .setColor('#FFFFFF')
+      client.channels.get(Config.WelcomeChannel).send(Embed)
     }
   })
   .on('guildMemberRemove', member => {
-    if (Config.WelcomeChannel !== 'disable') {
-      if (member.user.bot === false) {
-        const Embed = new DiscordJS.RichEmbed()
-          .addField('ユーザーがサーバーから退出しました。', `退出したユーザー：${member.user.tag}`, true)
-          .addField(`${member.user.tag}さん。さようなら...`, 'またどこかでお会いしましょう！', true)
-          .addField('バグ報告などはこちらへ', 'https://discord.gg/DbTpjXV')
-          .addField('このユーザーはボットではありません。', `ID：${member.user.tag}`)
-          .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
-          .setThumbnail(member.user.avatarURL)
-          .setColor('#0x00FF00')
-        client.channels.get(Config.WelcomeChannel).send(Embed)
-      } else {
-        const Embed = new DiscordJS.RichEmbed()
-          .addField('ボットがサーバーから退出しました。', `退出したボット：${member.user.tag}`, true)
-          .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
-          .addField('このボットの信頼性', checkbotsafety(member), true)
-          .addField('このユーザーはボットです。', `ID：${member.user.id}`)
-          .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
-          .setThumbnail(member.user.avatarURL)
-          .setColor('#0x00FF00')
-        client.channels.get(Config.WelcomeChannel).send(Embed)
-      }
+    if (Config.WelcomeChannel !== 'disable') return
+    if (member.user.bot === false) {
+      const Embed = new DiscordJS.RichEmbed()
+        .addField('ユーザーがサーバーから退出しました。', `退出したユーザー：${member.user.tag}`, true)
+        .addField(`${member.user.tag}さん。さようなら...`, 'またどこかでお会いしましょう！', true)
+        .addField('バグ報告などはこちらへ', 'https://discord.gg/DbTpjXV')
+        .addField('このユーザーはボットではありません。', `ID：${member.user.tag}`)
+        .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
+        .setThumbnail(member.user.avatarURL)
+        .setColor('#0x00FF00')
+      client.channels.get(Config.WelcomeChannel).send(Embed)
+    } else {
+      const Embed = new DiscordJS.RichEmbed()
+        .addField('ボットがサーバーから退出しました。', `退出したボット：${member.user.tag}`, true)
+        .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
+        .addField('このボットの信頼性', checkbotsafety(member), true)
+        .addField('このユーザーはボットです。', `ID：${member.user.id}`)
+        .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
+        .setThumbnail(member.user.avatarURL)
+        .setColor('#0x00FF00')
+      client.channels.get(Config.WelcomeChannel).send(Embed)
     }
   })
 
