@@ -24,11 +24,11 @@ client
     }
   })
 
-  .on('message', async m => {
-    if (!m.guild) return
-    if (m.author.bot) return
-    if (!m.content.startsWith(Prefix)) return
-    const [cmd, ...args] = m.content.slice(Prefix.length).split(' ')
+  .on('message', async message => {
+    if (!message.guild) return
+    if (message.author.bot) return
+    if (!message.content.startsWith(Prefix)) return
+    const [cmd, ...args] = message.content.slice(Prefix.length).split(' ')
     switch (cmd) {
       case 'help':
         const embed = {
@@ -88,20 +88,20 @@ client
             },
           ],
         }
-        m.channel.send({ embed })
+        message.channel.send({ embed })
         break
       case 'ping':
-        sendEmbed(m, `ポン！Pingの確認に成功しました！ボットのPingは${Math.floor(client.ping)}msです！`)
+        sendEmbed(message, `ポン！Pingの確認に成功しました！ボットのPingは${Math.floor(client.ping)}msです！`)
         break
       case 'avatar':
-        m.reply(m.author.avatarURL)
+        message.reply(message.author.avatarURL)
         break
       case 'translate':
       case 't':
         const [lang, ...source] = args
         const text = source.join(' ')
         if (!lang) {
-          sendEmbed(m, Language.transmsgtwo)
+          sendEmbed(message, Language.transmsgtwo)
         } else {
           if (text) {
             Request({
@@ -119,25 +119,25 @@ client
               json: true,
             }, function (e, r, b) {
               if (e) {
-                sendEmbed(m, Language.transfailed)
+                sendEmbed(message, Language.transfailed)
               } else {
-                m.channel.send(`${m.author.tag}:${b.sentences[0].trans}\n${Language.transoriginal}${text}`)
+                message.channel.send(`${message.author.tag}:${b.sentences[0].trans}\n${Language.transoriginal}${text}`)
               }
             })
           } else {
-            sendEmbed(m, Language.transmsg)
+            sendEmbed(message, Language.transmsg)
           }
         }
         break
       case 'discordstats':
-        m.channel.startTyping()
+        message.channel.startTyping()
         const _summary = await fetch('https://status.discordapp.com/api/v2/summary.json')
         const _incidents = await fetch('https://status.discordapp.com/api/v2/incidents.json')
         const summary = await _summary.json()
         const incidents = await _incidents.json()
-        const status = summary.components.map(e => ({
-          name: e.name,
-          value: (e.status === 'operational') ? Language.discordstatsnormal : Language.discordstatsabnormal,
+        const status = summary.components.map(component => ({
+          name: component.name,
+          value: (component.status === 'operational') ? Language.discordstatsnormal : Language.discordstatsabnormal,
           inline: true,
         }))
         const allstats = (summary.status.description === 'All Systems Operational')
@@ -149,8 +149,8 @@ client
             ? Language.discordstatsresolved
             : Language.discordstatsreunresolved,
         }
-        m.channel.stopTyping()
-        m.channel.send({
+        message.channel.stopTyping()
+        message.channel.send({
           embed: {
             color: 0x00FF00,
             footer: {
@@ -168,67 +168,67 @@ client
         })
         break
       case 'talk':
-        m.channel.startTyping()
+        message.channel.startTyping()
         const res = await fetch('https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=' + Config.DocomoAPIKEY, {
           method: 'POST',
           body: JSON.stringify({
-            context: m.content,
+            context: message.content,
           }),
         })
         const json = await res.json()
-        m.channel.stopTyping()
-        m.reply(json.utt)
+        message.channel.stopTyping()
+        message.reply(json.utt)
         break
       default:
-        sendEmbed(m, `不明なコマンドです。${Prefix}helpでコマンドに誤字、脱字、コマンドが存在するか確認をお願いいたします。`)
+        sendEmbed(message, `不明なコマンドです。${Prefix}helpでコマンドに誤字、脱字、コマンドが存在するか確認をお願いいたします。`)
         break
     }
   })
-  .on('guildMemberAdd', m => {
+  .on('guildMemberAdd', member => {
     if (Config.WelcomeChannel !== 'disable') {
-      if (m.user.bot === false) {
+      if (member.user.bot === false) {
         const Embed = new DiscordJS.RichEmbed()
-          .addField('新しいユーザーがサーバーに参加しました。', `参加したユーザー：${m.user.tag}`, true)
-          .addField(`${m.user.tag}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
+          .addField('新しいユーザーがサーバーに参加しました。', `参加したユーザー：${member.user.tag}`, true)
+          .addField(`${member.user.tag}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
           .addField('バグ報告などはこちらへ', 'https://discord.gg/DbTpjXV')
-          .addField('このユーザーはボットではありません。', `ID：${m.user.id}`)
+          .addField('このユーザーはボットではありません。', `ID：${member.user.id}`)
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
-          .setThumbnail(m.user.avatarURL)
+          .setThumbnail(member.user.avatarURL)
           .setColor('#FFFFFF')
         client.channels.get(Config.WelcomeChannel).send(Embed)
       } else {
         const Embed = new DiscordJS.RichEmbed()
-          .addField('新しいボットがサーバーに参加しました。', `参加したボット：${m.user.tag}`, true)
-          .addField('このボットの信頼性', checkbotsafety(m), true)
+          .addField('新しいボットがサーバーに参加しました。', `参加したボット：${member.user.tag}`, true)
+          .addField('このボットの信頼性', checkbotsafety(member), true)
           .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
-          .addField('このユーザーはボットです。', `ID：${m.user.id}`)
+          .addField('このユーザーはボットです。', `ID：${member.user.id}`)
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
-          .setThumbnail(m.user.avatarURL)
+          .setThumbnail(member.user.avatarURL)
           .setColor('#FFFFFF')
         client.channels.get(Config.WelcomeChannel).send(Embed)
       }
     }
   })
-  .on('guildMemberRemove', m => {
+  .on('guildMemberRemove', member => {
     if (Config.WelcomeChannel !== 'disable') {
-      if (m.user.bot === false) {
+      if (member.user.bot === false) {
         const Embed = new DiscordJS.RichEmbed()
-          .addField('ユーザーがサーバーから退出しました。', `退出したユーザー：${m.user.tag}`, true)
-          .addField(`${m.user.tag}さん。さようなら...`, 'またどこかでお会いしましょう！', true)
+          .addField('ユーザーがサーバーから退出しました。', `退出したユーザー：${member.user.tag}`, true)
+          .addField(`${member.user.tag}さん。さようなら...`, 'またどこかでお会いしましょう！', true)
           .addField('バグ報告などはこちらへ', 'https://discord.gg/DbTpjXV')
-          .addField('このユーザーはボットではありません。', `ID：${m.user.tag}`)
+          .addField('このユーザーはボットではありません。', `ID：${member.user.tag}`)
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
-          .setThumbnail(m.user.avatarURL)
+          .setThumbnail(member.user.avatarURL)
           .setColor('#0x00FF00')
         client.channels.get(Config.WelcomeChannel).send(Embed)
       } else {
         const Embed = new DiscordJS.RichEmbed()
-          .addField('ボットがサーバーから退出しました。', `退出したボット：${m.user.tag}`, true)
+          .addField('ボットがサーバーから退出しました。', `退出したボット：${member.user.tag}`, true)
           .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
-          .addField('このボットの信頼性', checkbotsafety(m), true)
-          .addField('このユーザーはボットです。', `ID：${m.user.id}`)
+          .addField('このボットの信頼性', checkbotsafety(member), true)
+          .addField('このユーザーはボットです。', `ID：${member.user.id}`)
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
-          .setThumbnail(m.user.avatarURL)
+          .setThumbnail(member.user.avatarURL)
           .setColor('#0x00FF00')
         client.channels.get(Config.WelcomeChannel).send(Embed)
       }
