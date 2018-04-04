@@ -184,10 +184,9 @@ client
         break
     }
   })
-.on('guildMemberAdd', m => {
+  .on('guildMemberAdd', m => {
     if (Config.WelcomeChannel !== 'disable') {
       if (m.user.bot === false) {
-      	console.log(Config.WelcomeChannel)
         const Embed = new DiscordJS.RichEmbed()
           .addField('新しいユーザーがサーバーに参加しました。', `参加したユーザー：${m.user.tag}`, true)
           .addField(`${m.user.tag}さん。ようこそ！`, `${Prefix}helpでコマンド一覧を確認できます！`, true)
@@ -202,7 +201,7 @@ client
           .addField('新しいボットがサーバーに参加しました。', `参加したボット：${m.user.tag}`, true)
           .addField('このボットの信頼性', checkbotsafety(m), true)
           .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
-          .addField('このユーザーはボットです。', `ID：${m.id}`)
+          .addField('このユーザーはボットです。', `ID：${m.user.id}`)
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
           .setThumbnail(m.user.avatarURL)
           .setColor('#FFFFFF')
@@ -213,7 +212,6 @@ client
   .on('guildMemberRemove', m => {
     if (Config.WelcomeChannel !== 'disable') {
       if (m.user.bot === false) {
-      	console.log(Config.WelcomeChannel)
         const Embed = new DiscordJS.RichEmbed()
           .addField('ユーザーがサーバーから退出しました。', `退出したユーザー：${m.user.tag}`, true)
           .addField(`${m.user.tag}さん。さようなら...`, 'またどこかでお会いしましょう！', true)
@@ -228,7 +226,7 @@ client
           .addField('ボットがサーバーから退出しました。', `退出したボット：${m.user.tag}`, true)
           .addField(`このボットを使用して${client.user.tag}に問題が発生した場合はこちらへ`, 'https://discord.gg/DbTpjXV')
           .addField('このボットの信頼性', checkbotsafety(m), true)
-          .addField('このユーザーはボットです。', `ID：${m.id}`)
+          .addField('このユーザーはボットです。', `ID：${m.user.id}`)
           .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
           .setThumbnail(m.user.avatarURL)
           .setColor('#0x00FF00')
