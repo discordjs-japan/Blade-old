@@ -25,6 +25,7 @@ client
   })
 
   .on('message', async m => {
+    if (!msg.guild) return
     if (m.author.bot) return
     if (!m.content.startsWith(Prefix)) return
     const [cmd, ...args] = m.content.slice(Prefix.length).split(' ')
