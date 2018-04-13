@@ -94,7 +94,9 @@ client
         sendEmbed(message, `ポン！Pingの確認に成功しました！ボットのPingは${Math.floor(client.ping)}msです！`)
         break
       case 'avatar':
-        message.reply(message.author.avatarURL)
+        const Avatar = new DiscordJS.RichEmbed()
+        .setImage(message.author.avatarURL)
+        message.channel.send(Avatar)
         break
       case 'translate':
       case 't':
