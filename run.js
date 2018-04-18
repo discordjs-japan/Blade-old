@@ -95,7 +95,7 @@ client
         break
       case 'avatar':
         const Avatar = new DiscordJS.RichEmbed()
-        .setImage(message.author.avatarURL)
+          .setImage(message.author.avatarURL)
         message.channel.send(Avatar)
         break
       case 'translate':
@@ -170,16 +170,20 @@ client
         })
         break
       case 'talk':
-        message.channel.startTyping()
-        const res = await fetch('https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=' + Config.DocomoAPIKEY, {
-          method: 'POST',
-          body: JSON.stringify({
-            context: message.content,
-          }),
-        })
-        const json = await res.json()
-        message.channel.stopTyping()
-        message.reply(json.utt)
+        if (Config.WelcomeChannel === 'disable') {
+          message.channel.startTyping()
+          const res = await fetch('https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=' + Config.DocomoAPIKEY, {
+            method: 'POST',
+            body: JSON.stringify({
+              context: message.content,
+            }),
+          })
+          const json = await res.json()
+          message.channel.stopTyping()
+          message.reply(json.utt)
+        } else {
+          sendEmbed(message, `この機能はオフに設定されています。`)
+        }
         break
       default:
         sendEmbed(message, `不明なコマンドです。${Prefix}helpでコマンドに誤字、脱字、コマンドが存在するか確認をお願いいたします。`)
