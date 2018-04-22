@@ -169,9 +169,6 @@ client
           },
         })
         break
-      case 'server':
-
-        break
       case 'talk':
         if (Config.DocomoAPIKEY !== 'disable') {
           message.channel.startTyping()
@@ -185,7 +182,7 @@ client
           message.channel.stopTyping()
           message.reply(json.utt)
         } else {
-        	sendEmbed(message, "この機能はOFFに設定されています。")
+          sendEmbed(message, 'この機能はOFFに設定されています。')
         }
         break
       default:
