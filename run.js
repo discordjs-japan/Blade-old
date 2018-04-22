@@ -72,6 +72,10 @@ client
               'value': Language.helptalk,
             },
             {
+              'name': 'server',
+              'value': Language.helpserver,
+            },
+            {
               'name': Language.helpofficial,
               'value': 'https://djs-jpn.ga',
               'inline': true,
