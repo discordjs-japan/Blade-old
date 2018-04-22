@@ -185,6 +185,20 @@ client
           sendEmbed(message, 'この機能はOFFに設定されています。')
         }
         break
+      case 'server':
+        const Server = new DiscordJS.RichEmbed()
+          .setColor('#0x00FF00')
+          .setTitle(Language.servertitel)
+          .setThumbnail(message.guild.iconURL)
+          .addField(Language.serverid, message.guild.id, true)
+          .addField(Language.serverowner, message.guild.owner.id, true)
+          .addField(Language.servermember, message.guild.members.size, true)
+          .addField(Language.serverregion, message.guild.region, true)
+          .addField(Language.serverchannel, message.guild.channels.size, true)
+          .addField(Language.servercreate, message.guild.createdAt)
+          .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
+        message.channel.send(Server)
+        break
       default:
         sendEmbed(message, `不明なコマンドです。${Prefix}helpでコマンドに誤字、脱字、コマンドが存在するか確認をお願いいたします。`)
         break

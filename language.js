@@ -30,6 +30,13 @@ const Messages = {
     ussouth: '南アメリカ',
     uswest: '西アメリカ',
     brazil: 'ブラジル',
+    servertitel: 'サーバーステータス',
+    serverid: 'サーバーID',
+    servermember: '人数',
+    serverowner: 'オーナー',
+    serverregion: 'リージョン',
+    serverchannel: 'チャンネル数',
+    servercreate: 'サーバー作成日',
   },
   en_us: {
     language: 'English',
@@ -62,6 +69,13 @@ const Messages = {
     ussouth: 'US South',
     uswest: 'US West',
     brazil: 'Brazil',
+    servertitel: 'ServerStatus',
+    serverid: 'ServerID',
+    servermember: 'Members',
+    serverowner: 'Owner',
+    serverregion: 'Region',
+    serverchannel: 'Channels',
+    servercreate: 'Created On',
   },
 }
 
