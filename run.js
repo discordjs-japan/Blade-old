@@ -169,8 +169,11 @@ client
           },
         })
         break
+      case 'server':
+
+        break
       case 'talk':
-        if (Config.WelcomeChannel === 'disable') {
+        if (Config.DocomoAPIKEY !== 'disable') {
           message.channel.startTyping()
           const res = await fetch('https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=' + Config.DocomoAPIKEY, {
             method: 'POST',
@@ -182,7 +185,7 @@ client
           message.channel.stopTyping()
           message.reply(json.utt)
         } else {
-          sendEmbed(message, `この機能はオフに設定されています。`)
+        	sendEmbed(message, "この機能はOFFに設定されています。")
         }
         break
       default:
