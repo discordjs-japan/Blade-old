@@ -243,7 +243,7 @@ client
         .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
         .setThumbnail(member.user.avatarURL)
         .setColor('#0x00FF00')
-      client.channels.get(Config.WelcomeChannel).send(Embed)
+      client.channels.get('name', Config.WelcomeChannel).send(Embed)
     } else {
       const Embed = new DiscordJS.RichEmbed()
         .addField('ボットがサーバーから退出しました。', `退出したボット：${member.user.tag}`, true)
@@ -253,7 +253,7 @@ client
         .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
         .setThumbnail(member.user.avatarURL)
         .setColor('#0x00FF00')
-      client.channels.get(Config.WelcomeChannel).send(Embed)
+      client.channels.get('name', Config.WelcomeChannel).send(Embed)
     }
   })
 
