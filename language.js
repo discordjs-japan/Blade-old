@@ -38,6 +38,7 @@ const Messages = {
     serverregion: 'リージョン',
     serverchannel: 'チャンネル数',
     servercreate: 'サーバー作成日',
+    talkoff: 'この機能はOFFです',
   },
   en_us: {
     language: 'English',
@@ -78,6 +79,7 @@ const Messages = {
     serverregion: 'Region',
     serverchannel: 'Channels',
     servercreate: 'Created On',
+    talkoff: 'This function is OFF',
   },
 }
 

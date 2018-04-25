@@ -186,7 +186,7 @@ client
           message.channel.stopTyping()
           message.reply(json.utt)
         } else {
-          sendEmbed(message, 'この機能はOFFに設定されています。')
+          sendEmbed(message, Language.talkoff)
         }
         break
       case 'server':
