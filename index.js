@@ -68,10 +68,6 @@ client
               'value': Language.helpdiscordstats,
             },
             {
-              'name': 'talk',
-              'value': Language.helptalk,
-            },
-            {
               'name': 'server',
               'value': Language.helpserver,
             },
@@ -172,22 +168,6 @@ client
             }],
           },
         })
-        break
-      case 'talk':
-        if (Config.DocomoAPIKEY !== 'disable') {
-          message.channel.startTyping()
-          const res = await fetch('https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=' + Config.DocomoAPIKEY, {
-            method: 'POST',
-            body: JSON.stringify({
-              context: message.content,
-            }),
-          })
-          const json = await res.json()
-          message.channel.stopTyping()
-          message.reply(json.utt)
-        } else {
-          sendEmbed(message, Language.talkoff)
-        }
         break
       case 'server':
         const Server = new DiscordJS.RichEmbed()

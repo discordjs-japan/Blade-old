@@ -7,7 +7,6 @@ const Messages = {
     helpavatar: '送信者のプロフィール画像を表示',
     helptranslate: 'テキストを翻訳',
     helpdiscordstats: 'Discordのサーバー状態を確認',
-    helptalk: '雑談機能',
     helpserver: 'サーバーの情報を表示',
     helpofficial: '公式サイト',
     helpbugreport: 'バグ報告・公式Discordサーバー',
@@ -38,7 +37,6 @@ const Messages = {
     serverregion: 'リージョン',
     serverchannel: 'チャンネル数',
     servercreate: 'サーバー作成日',
-    talkoff: 'この機能はOFFです',
   },
   en_us: {
     language: 'English',
@@ -48,7 +46,6 @@ const Messages = {
     helpavatar: 'Show sender avatar',
     helptranslate: 'Translate text',
     helpdiscordstats: 'Check Discord server status',
-    helptalk: 'Chat function',
     helpserver: 'Show server information',
     helpofficial: 'Official Website',
     helpbugreport: 'Bug Report・Official Discord Server',
@@ -79,7 +76,6 @@ const Messages = {
     serverregion: 'Region',
     serverchannel: 'Channels',
     servercreate: 'Created On',
-    talkoff: 'This function is OFF',
   },
 }
 
