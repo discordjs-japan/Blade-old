@@ -62,7 +62,7 @@ client
     `)
   })
   .on('guildMemberAdd', member => {
-    if (env.WelcomeChannel !== 'disable') return
+    if (env.WELCOMECHANNEL !== 'disable') return
     if (member.user.bot === false) {
       const Embed = new Discord.RichEmbed()
         .addField('新しいユーザーがサーバーに参加しました。', `参加したユーザー：${member.user.tag}`, true)
@@ -72,7 +72,7 @@ client
         .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
         .setThumbnail(member.user.avatarURL)
         .setColor('#FFFFFF')
-      client.channels.get(env.WelcomeChannel).send(Embed)
+      client.channels.get(env.WELCOMECHANNEL).send(Embed)
     } else {
       const Embed = new Discord.RichEmbed()
         .addField('新しいボットがサーバーに参加しました。', `参加したボット：${member.user.tag}`, true)
@@ -82,11 +82,11 @@ client
         .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
         .setThumbnail(member.user.avatarURL)
         .setColor('#FFFFFF')
-      client.channels.get(env.WelcomeChannel).send(Embed)
+      client.channels.get(env.WELCOMECHANNEL).send(Embed)
     }
   })
   .on('guildMemberRemove', member => {
-    if (env.WelcomeChannel !== 'disable') return
+    if (env.WELCOMECHANNEL !== 'disable') return
     if (member.user.bot === false) {
       const Embed = new Discord.RichEmbed()
         .addField('ユーザーがサーバーから退出しました。', `退出したユーザー：${member.user.tag}`, true)
@@ -96,7 +96,7 @@ client
         .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
         .setThumbnail(member.user.avatarURL)
         .setColor('#0x00FF00')
-      client.channels.get(env.WelcomeChannel).send(Embed)
+      client.channels.get(env.WELCOMECHANNEL).send(Embed)
     } else {
       const Embed = new Discord.RichEmbed()
         .addField('ボットがサーバーから退出しました。', `退出したボット：${member.user.tag}`, true)
@@ -106,7 +106,7 @@ client
         .setFooter('DEVELOPED BY DJS-JPN', 'https://avatars3.githubusercontent.com/u/35397294?s=200&v=4')
         .setThumbnail(member.user.avatarURL)
         .setColor('#0x00FF00')
-      client.channels.get(env.WelcomeChannel).send(Embed)
+      client.channels.get(env.WELCOMECHANNEL).send(Embed)
     }
   })
 
