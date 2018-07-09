@@ -16,12 +16,6 @@ client
         type: 1,
       },
     })
-    if (!isNaN(Config.RestartDelay) && process.argv[2] !== 'false') {
-      setInterval(() => {
-        console.log('==============再起動を開始します==============')
-        process.exit(0)
-      }, Number(Config.RestartDelay))
-    }
   })
 
   .on('message', async message => {
