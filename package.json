@@ -2,9 +2,9 @@
   "name": "blade",
   "version": "1.0.0",
   "description": "",
-  "main": "run.js",
+  "main": "index.js",
   "scripts": {
-    "test": "node run.js"
+    "test": "node index.js"
   },
   "repository": {
     "type": "git",
