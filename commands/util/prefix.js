@@ -1,5 +1,5 @@
 const { stripIndents, oneLine } = require('common-tags')
-const Command = require('../base')
+const Command = require('discord.js-commando')
 
 module.exports = class PrefixCommand extends Command {
   constructor (client) {
