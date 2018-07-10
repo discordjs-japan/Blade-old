@@ -76,10 +76,10 @@ module.exports = class HelpCommand extends commando.Command {
         messages.push(await msg.direct(stripIndents`
           ${oneLine`
             To run a command in ${msg.guild ? msg.guild.name : 'any server'},
-            use ${Command.usage('command', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
-            For example, ${Command.usage('prefix', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
+            use ${commando.Command.usage('command', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
+            For example, ${commando.Command.usage('prefix', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
           `}
-          To run a command in this DM, simply use ${Command.usage('command', null, null)} with no prefix.
+          To run a command in this DM, simply use ${commando.Command.usage('command', null, null)} with no prefix.
 
           Use ${this.usage('<command>', null, null)} to view detailed information about a specific command.
           Use ${this.usage('all', null, null)} to view a list of *all* commands, not just available ones.
