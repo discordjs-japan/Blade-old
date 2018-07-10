@@ -2,12 +2,12 @@ const util = require('util')
 const discord = require('discord.js')
 const tags = require('common-tags')
 const escapeRegex = require('escape-string-regexp')
-const Command = require('discord.js-commando')
+const commando = require('discord.js-commando')
 
 const nl = '!!NL!!'
 const nlPattern = new RegExp(nl, 'g')
 
-module.exports = class EvalCommand extends Command {
+module.exports = class EvalCommand extends commando.Command {
   constructor (client) {
     super(client, {
       name: 'eval',
