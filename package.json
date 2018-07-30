@@ -25,8 +25,7 @@
   "dependencies": {
     "discord.js": "^11.3.0",
     "dotenv": "^5.0.0",
-    "node-fetch": "^2.0.0",
-    "request": "^2.83.0"
+    "node-fetch": "^2.0.0"
   },
   "engines": {
     "node": ">=7.0.0"
