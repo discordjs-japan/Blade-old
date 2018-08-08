@@ -1,7 +1,6 @@
 const DiscordJS = require('discord.js')
 const client = new DiscordJS.Client()
 const { parsed: Config } = require('dotenv').load()
-const Request = require('request')
 const fetch = require('node-fetch')
 const Prefix = Config.Prefix
 const Language = require('./language.js')[Config.Language]
@@ -22,7 +21,7 @@ client
     if (!message.guild) return
     if (message.author.bot) return
     if (!message.content.startsWith(Prefix)) return
-    const [cmd, ...args] = message.content.slice(Prefix.length).split(' ')
+    const [cmd] = message.content.slice(Prefix.length).split(' ')
     switch (cmd) {
       case 'help':
         const embed = {
@@ -91,39 +90,6 @@ client
         const Avatar = new DiscordJS.RichEmbed()
           .setImage(message.author.avatarURL)
         message.channel.send(Avatar)
-        break
-      case 'translate':
-      case 't':
-        const [lang, ...source] = args
-        const text = source.join(' ')
-        if (!lang) {
-          sendEmbed(message, Language.transmsgtwo)
-        } else {
-          if (text) {
-            Request({
-              method: 'POST',
-              url: 'https://translate.google.com/translate_a/single?client=at&dt=t&dt=ld&dt=qca&dt=rm&dt=bd&dj=1&hl=es-ES&ie=UTF-8&oe=UTF-8&inputm=2&otf=2&iid=1dd3b944-fa62-4b55-b330-74909a99969e',
-              headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-                'User-Agent': 'AndroidTranslate',
-              },
-              form: {
-                'sl': 'auto',
-                'tl': lang,
-                'q': text,
-              },
-              json: true,
-            }, function (e, r, b) {
-              if (e) {
-                sendEmbed(message, Language.transfailed)
-              } else {
-                message.channel.send(`${message.author.tag}:${b.sentences[0].trans}\n${Language.transoriginal}${text}`)
-              }
-            })
-          } else {
-            sendEmbed(message, Language.transmsg)
-          }
-        }
         break
       case 'discordstats':
         message.channel.startTyping()
